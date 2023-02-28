@@ -12,8 +12,8 @@ namespace Ushahidi\Tests\Unit\DataSource;
 
 use Mockery as M;
 use Ushahidi\Tests\TestCase;
-use Ushahidi\Core\Entity\Config;
 use Ushahidi\DataSource\Twitter\Twitter;
+use Ushahidi\Core\Ohanzee\Entity\Config;
 
 /**
  * @backupGlobals disabled
@@ -25,7 +25,7 @@ class TwitterDataSourceTest extends TestCase
     {
         $mockTwitterOAuth = M::mock(\Abraham\TwitterOAuth\TwitterOAuth::class);
         $mockResponse = M::mock(\Abraham\TwitterOAuth\Response::class);
-        $mockRepo = M::mock(\Ushahidi\Modules\V3\Repository\ConfigRepository::class);
+        $mockRepo = M::mock(\Ushahidi\Core\Ohanzee\Repository\ConfigRepository::class);
 
         $twitter = new Twitter(
             [],
@@ -47,7 +47,7 @@ class TwitterDataSourceTest extends TestCase
         $mockTwitterOAuth = M::mock(\Abraham\TwitterOAuth\TwitterOAuth::class);
         $mockTwitterOAuth->shouldReceive('setTimeouts')->once();
         $mockResponse = M::mock(\Abraham\TwitterOAuth\Response::class);
-        $mockRepo = M::mock(\Ushahidi\Modules\V3\Repository\ConfigRepository::class);
+        $mockRepo = M::mock(\Ushahidi\Core\Ohanzee\Repository\ConfigRepository::class);
 
         $twitter = new Twitter(
             [
@@ -85,7 +85,7 @@ class TwitterDataSourceTest extends TestCase
         $mockTwitterOAuth = M::mock(\Abraham\TwitterOAuth\TwitterOAuth::class);
         $mockTwitterOAuth->shouldReceive('setTimeouts')->once();
         $mockResponse = M::mock(\Abraham\TwitterOAuth\Response::class);
-        $mockRepo = M::mock(\Ushahidi\Modules\V3\Repository\ConfigRepository::class);
+        $mockRepo = M::mock(\Ushahidi\Core\Ohanzee\Repository\ConfigRepository::class);
 
         $twitter = new Twitter(
             [
@@ -140,7 +140,7 @@ class TwitterDataSourceTest extends TestCase
         $mockTwitterOAuth = M::mock(\Abraham\TwitterOAuth\TwitterOAuth::class);
         $mockTwitterOAuth->shouldReceive('setTimeouts')->once();
         $mockResponse = M::mock(\Abraham\TwitterOAuth\Response::class);
-        $mockRepo = M::mock(\Ushahidi\Modules\V3\Repository\ConfigRepository::class);
+        $mockRepo = M::mock(\Ushahidi\Core\Ohanzee\Repository\ConfigRepository::class);
 
         $twitter = new Twitter(
             [
@@ -161,6 +161,14 @@ class TwitterDataSourceTest extends TestCase
             'since_id' => 1234,
             'search_terms' => '#ushahidi,#test',
         ]);
+
+        // $config = M::mock(Config::class);
+
+        // $config->shouldReceive('asArray')->once()->andReturn([
+        //     'id' => 'twitter',
+        //     'since_id' => 1234,
+        //     'search_terms' => '#ushahidi,#test',
+        // ]);
 
         $mockRepo->shouldReceive('get')->atLeast()->once()
             ->with('twitter')

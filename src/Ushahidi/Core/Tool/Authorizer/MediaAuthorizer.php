@@ -16,7 +16,7 @@ use Ushahidi\Contracts\Authorizer;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\OwnerAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
 
 // The `MediaAuthorizer` class is responsible for access checks on `Medias`
@@ -30,14 +30,14 @@ class MediaAuthorizer implements Authorizer
     // - `OwnerAccess` to check if a user owns the entity
     use AdminAccess, OwnerAccess;
 
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
     /* Authorizer */
-    public function isAllowed(Entity $entity, $privilege)
+    public function isAllowed(Entity $media, $privilege)
     {
         // These checks are run within the user context.
         $user = $this->getUser();
@@ -63,7 +63,7 @@ class MediaAuthorizer implements Authorizer
         }
 
         // Owners can removed media they own.
-        if ($this->isUserOwner($entity, $user) && $privilege === 'delete') {
+        if ($this->isUserOwner($media, $user) && $privilege === 'delete') {
             return true;
         }
 

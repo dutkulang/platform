@@ -3,15 +3,15 @@
 namespace Ushahidi\Modules\V5\Policies;
 
 use Ushahidi\Authzn\GenericUser as User;
-use Ushahidi\Core\Entity;
-use Ushahidi\Modules\V5\Models\Notification;
+use Ushahidi\Core\Ohanzee\Entity\Notification as OhanzeeNotification;
+use Ushahidi\Modules\V5\Models\Notification as EloquentNotification;
 use Ushahidi\Contracts\Permission;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
 use Ushahidi\Core\Concerns\OwnerAccess;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
+use Ushahidi\Core\Concerns\ControlAccess;
 
 class NotificationPolicy
 {
@@ -23,74 +23,48 @@ class NotificationPolicy
     // - `AdminAccess` to check if the user has admin access
     use AdminAccess;
 
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
     // Check that the user has the necessary permissions
-    use AccessControlList;
-    
+    use ControlAccess;
+
     use OwnerAccess;
 
     protected $user;
 
-
-    /**
-     *
-     * @param  \Ushahidi\Modules\User  $user
-     * @return bool
-     */
     public function index()
     {
-        $empty_notification_entity = new Entity\Notification();
+        $empty_notification_entity = new OhanzeeNotification();
         return $this->isAllowed($empty_notification_entity, 'search');
     }
 
-    /**
-     *
-     * @param GenericUser $user
-     * @param Notification $notification
-     * @return bool
-     */
-    public function show(User $user, Notification $notification)
+    public function show(User $user, EloquentNotification $notification)
     {
-        $notification_entity = new Entity\Notification($notification->toArray());
+        $notification_entity = new OhanzeeNotification($notification->toArray());
         return $this->isAllowed($notification_entity, 'read');
     }
 
-    /**
-     *
-     * @param GenericUser $user
-     * @param Notification $notification
-     * @return bool
-     */
-    public function delete(User $user, Notification $notification)
+    public function delete(User $user, EloquentNotification $notification)
     {
-        $notification_entity = new Entity\Notification($notification->toArray());
+        $notification_entity = new OhanzeeNotification($notification->toArray());
         return $this->isAllowed($notification_entity, 'delete');
     }
-    /**
-     * @param Notification $notification
-     * @return bool
-     */
-    public function update(User $user, Notification $notification)
+
+    public function update(User $user, EloquentNotification $notification)
     {
         // we convert to a Notification entity to be able to continue using the old authorizers and classes.
-        $notification_entity = new Entity\Notification($notification->toArray());
+        $notification_entity = new OhanzeeNotification($notification->toArray());
         return $this->isAllowed($notification_entity, 'update');
     }
 
-
-    /**
-     * @param Notification $notification
-     * @return bool
-     */
-    public function store(User $user, Notification $notification)
+    public function store(User $user, EloquentNotification $notification)
     {
         // we convert to a notification_entity entity to be able to continue using the old authorizers and classes.
-        $notification_entity = new Entity\Notification($notification->toArray());
+        $notification_entity = new OhanzeeNotification($notification->toArray());
         return $this->isAllowed($notification_entity, 'create');
     }
 

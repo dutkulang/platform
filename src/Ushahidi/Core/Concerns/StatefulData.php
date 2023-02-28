@@ -11,6 +11,11 @@
 
 namespace Ushahidi\Core\Concerns;
 
+use Ushahidi\Core\Concerns\DeriveData;
+use Ushahidi\Core\Concerns\DefaultData;
+use Ushahidi\Core\Concerns\TransformData;
+use Ushahidi\Core\Concerns\RecursiveArrayDiff;
+
 trait StatefulData
 {
     use DefaultData;

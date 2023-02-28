@@ -12,16 +12,15 @@
 namespace Ushahidi\Core\Tool\Authorizer;
 
 use Ushahidi\Contracts\Entity;
-use Ushahidi\Core\Entity\User;
-use Ushahidi\Core\Entity\Set;
-use Ushahidi\Contracts\Permission;
 use Ushahidi\Contracts\Authorizer;
+use Ushahidi\Core\Entity\Set;
+use Ushahidi\Core\Entity\Permission;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\OwnerAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
 use Ushahidi\Core\Concerns\PrivateDeployment;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
+use Ushahidi\Core\Concerns\ControlAccess;
 
 // The `SetAuthorizer` class is responsible for access checks on `Sets`
 class SetAuthorizer implements Authorizer
@@ -34,15 +33,15 @@ class SetAuthorizer implements Authorizer
     // - `AdminAccess` to check if the user has admin access
     use AdminAccess, OwnerAccess;
 
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
     // Check that the user has the necessary permissions
     // if roles are available for this deployment.
-    use AccessControlList;
+    use ControlAccess;
 
     protected function isVisibleToUser(Set $set, $user)
     {
@@ -55,7 +54,7 @@ class SetAuthorizer implements Authorizer
     }
 
     /* Authorizer */
-    public function isAllowed(Entity $entity, $privilege)
+    public function isAllowed(Entity $set, $privilege)
     {
         // Firstly, all users can search sets
         if ($privilege === 'search') {
@@ -83,11 +82,11 @@ class SetAuthorizer implements Authorizer
         }
 
         // Non-admin users are not allowed to make sets featured
-        if (!$is_admin && $entity->hasChanged('featured') && in_array($privilege, ['create', 'update'])) {
+        if (!$is_admin && $set->hasChanged('featured') && in_array($privilege, ['create', 'update'])) {
             return false;
         }
 
-        $isUserOwner = $this->isUserOwner($entity, $user);
+        $isUserOwner = $this->isUserOwner($set, $user);
         // If the user is the owner of this set, they can do anything
         if ($isUserOwner) {
             return true;
@@ -99,7 +98,7 @@ class SetAuthorizer implements Authorizer
         // }
 
         // Check if the Set is only visible to specific roles.
-        if ($this->isVisibleToUser($entity, $user) and $privilege === 'read') {
+        if ($this->isVisibleToUser($set, $user) and $privilege === 'read') {
             return true;
         }
 

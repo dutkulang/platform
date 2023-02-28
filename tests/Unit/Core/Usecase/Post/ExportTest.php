@@ -11,15 +11,15 @@ namespace Ushahidi\Tests\Unit\Core\Usecase\Post;
 use Faker;
 use Mockery as M;
 use Ushahidi\Tests\TestCase;
-use Ushahidi\Core\Entity\ExportJob;
-use Ushahidi\Core\Entity\HXL\HXLLicense;
-use Ushahidi\Core\Entity\HXL\HXLMetadata;
-use Ushahidi\Core\Entity\Post;
-use Ushahidi\Core\Entity\User;
 use Ushahidi\Core\Tool\SearchData;
-use Ushahidi\Modules\V3\Repository\ExportJobRepository;
-use Ushahidi\Modules\V3\Repository\Form\AttributeRepository;
-use Ushahidi\Modules\V3\Repository\Post\ExportRepository;
+use Ushahidi\Core\Entity\HXL\HXLLicense;
+use Ushahidi\Core\Ohanzee\Entity\Post;
+use Ushahidi\Core\Ohanzee\Entity\User;
+use Ushahidi\Core\Entity\HXL\HXLMetadata;
+use Ushahidi\Core\Ohanzee\Entity\ExportJob;
+use Ushahidi\Core\Ohanzee\Repository\ExportJobRepository;
+use Ushahidi\Core\Ohanzee\Repository\Post\ExportRepository;
+use Ushahidi\Core\Ohanzee\Repository\Form\AttributeRepository;
 
 class ExportTest extends TestCase
 {

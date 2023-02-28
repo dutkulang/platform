@@ -11,7 +11,7 @@
 
 namespace Ushahidi\Core\Entity\HXL;
 
-use Ushahidi\Core\StaticEntity;
+use Ushahidi\Core\Ohanzee\StaticEntity;
 
 class HXLLicense extends StaticEntity
 {
@@ -21,7 +21,7 @@ class HXLLicense extends StaticEntity
     protected $link;
 
     // DataTransformer
-    public function getDefinition()
+    protected function getDefinition()
     {
         return [
             'id'        => 'int',

@@ -254,78 +254,78 @@ class AppConfig extends ContainerConfig
 
 
         // Repositories
-        $di->set('repository.apikey', $di->lazyNew(V3\Repository\ApiKeyRepository::class));
-        $di->set('repository.config', $di->lazyNew(V3\Repository\ConfigRepository::class));
-        $di->set('repository.contact', $di->lazyNew(V3\Repository\ContactRepository::class));
-        $di->set('repository.country_code', $di->lazyNew(V3\Repository\CountryCodeRepository::class));
-        $di->set('repository.dataprovider', $di->lazyNew(V3\Repository\DataProviderRepository::class));
-        $di->set('repository.form', $di->lazyNew(V3\Repository\FormRepository::class));
-        $di->set('repository.form_role', $di->lazyNew(V3\Repository\Form\RoleRepository::class));
-        $di->set('repository.form_contact', $di->lazyNew(V3\Repository\Form\ContactRepository::class));
-        $di->set('repository.form_stats', $di->lazyNew(V3\Repository\Form\StatsRepository::class));
+        $di->set('repository.apikey', $di->lazyNew(Core\Ohanzee\Repository\ApiKeyRepository::class));
+        $di->set('repository.config', $di->lazyNew(Core\Ohanzee\Repository\ConfigRepository::class));
+        $di->set('repository.contact', $di->lazyNew(Core\Ohanzee\Repository\ContactRepository::class));
+        $di->set('repository.country_code', $di->lazyNew(Core\Ohanzee\Repository\CountryCodeRepository::class));
+        $di->set('repository.dataprovider', $di->lazyNew(Core\Ohanzee\Repository\DataProviderRepository::class));
+        $di->set('repository.form', $di->lazyNew(Core\Ohanzee\Repository\FormRepository::class));
+        $di->set('repository.form_role', $di->lazyNew(Core\Ohanzee\Repository\Form\RoleRepository::class));
+        $di->set('repository.form_contact', $di->lazyNew(Core\Ohanzee\Repository\Form\ContactRepository::class));
+        $di->set('repository.form_stats', $di->lazyNew(Core\Ohanzee\Repository\Form\StatsRepository::class));
 
-        $di->set('repository.form_stage', $di->lazyNew(V3\Repository\Form\StageRepository::class));
-        $di->set('repository.form_attribute', $di->lazyNew(V3\Repository\Form\AttributeRepository::class));
-        $di->set('repository.layer', $di->lazyNew(V3\Repository\LayerRepository::class));
-        $di->set('repository.media', $di->lazyNew(V3\Repository\MediaRepository::class));
-        $di->set('repository.message', $di->lazyNew(V3\Repository\MessageRepository::class));
+        $di->set('repository.form_stage', $di->lazyNew(Core\Ohanzee\Repository\Form\StageRepository::class));
+        $di->set('repository.form_attribute', $di->lazyNew(Core\Ohanzee\Repository\Form\AttributeRepository::class));
+        $di->set('repository.layer', $di->lazyNew(Core\Ohanzee\Repository\LayerRepository::class));
+        $di->set('repository.media', $di->lazyNew(Core\Ohanzee\Repository\MediaRepository::class));
+        $di->set('repository.message', $di->lazyNew(Core\Ohanzee\Repository\MessageRepository::class));
         $di->set(
             'repository.targeted_survey_state',
-            $di->lazyNew(V3\Repository\TargetedSurveyStateRepository::class)
+            $di->lazyNew(Core\Ohanzee\Repository\TargetedSurveyStateRepository::class)
         );
-        $di->set('repository.post', $di->lazyNew(V3\Repository\PostRepository::class));
+        $di->set('repository.post', $di->lazyNew(Core\Ohanzee\Repository\PostRepository::class));
 
-        $di->set('repository.post_lock', $di->lazyNew(V3\Repository\Post\LockRepository::class));
-        $di->set('repository.tag', $di->lazyNew(V3\Repository\TagRepository::class));
-        $di->set('repository.set', $di->lazyNew(V3\Repository\SetRepository::class));
+        $di->set('repository.post_lock', $di->lazyNew(Core\Ohanzee\Repository\Post\LockRepository::class));
+        $di->set('repository.tag', $di->lazyNew(Core\Ohanzee\Repository\TagRepository::class));
+        $di->set('repository.set', $di->lazyNew(Core\Ohanzee\Repository\SetRepository::class));
         $di->set('repository.savedsearch', $di->lazyNew(
-            V3\Repository\SetRepository::class,
+            Core\Ohanzee\Repository\SetRepository::class,
             [],
             [
                 'setSavedSearch' => true
             ]
         ));
-        $di->set('repository.user', $di->lazyNew(V3\Repository\UserRepository::class));
-        $di->set('repository.user_setting', $di->lazyNew(V3\Repository\User\SettingRepository::class));
-        $di->set('repository.resetpassword', $di->lazyNew(V3\Repository\ResetPasswordRepository::class));
-        $di->set('repository.role', $di->lazyNew(V3\Repository\RoleRepository::class));
-        $di->set('repository.notification', $di->lazyNew(V3\Repository\NotificationRepository::class));
-        $di->set('repository.webhook', $di->lazyNew(V3\Repository\WebhookRepository::class));
-        $di->set('repository.csv', $di->lazyNew(V3\Repository\CSVRepository::class));
+        $di->set('repository.user', $di->lazyNew(Core\Ohanzee\Repository\UserRepository::class));
+        $di->set('repository.user_setting', $di->lazyNew(Core\Ohanzee\Repository\User\SettingRepository::class));
+        $di->set('repository.resetpassword', $di->lazyNew(Core\Ohanzee\Repository\ResetPasswordRepository::class));
+        $di->set('repository.role', $di->lazyNew(Core\Ohanzee\Repository\RoleRepository::class));
+        $di->set('repository.notification', $di->lazyNew(Core\Ohanzee\Repository\NotificationRepository::class));
+        $di->set('repository.webhook', $di->lazyNew(Core\Ohanzee\Repository\WebhookRepository::class));
+        $di->set('repository.csv', $di->lazyNew(Core\Ohanzee\Repository\CSVRepository::class));
         $di->set(
             'repository.notification.queue',
-            $di->lazyNew(V3\Repository\Notification\QueueRepository::class)
+            $di->lazyNew(Core\Ohanzee\Repository\Notification\QueueRepository::class)
         );
-        $di->set('repository.webhook.job', $di->lazyNew(V3\Repository\Webhook\JobRepository::class));
-        $di->set('repository.permission', $di->lazyNew(V3\Repository\PermissionRepository::class));
-        $di->set('repository.posts_export', $di->lazyNew(V3\Repository\Post\ExportRepository::class));
-        $di->set('repository.tos', $di->lazyNew(V3\Repository\TosRepository::class));
-        $di->set('repository.export_job', $di->lazyNew(V3\Repository\ExportJobRepository::class));
-        $di->params[V3\Repository\ExportJobRepository::class] = [
+        $di->set('repository.webhook.job', $di->lazyNew(Core\Ohanzee\Repository\Webhook\JobRepository::class));
+        $di->set('repository.permission', $di->lazyNew(Core\Ohanzee\Repository\PermissionRepository::class));
+        $di->set('repository.posts_export', $di->lazyNew(Core\Ohanzee\Repository\Post\ExportRepository::class));
+        $di->set('repository.tos', $di->lazyNew(Core\Ohanzee\Repository\TosRepository::class));
+        $di->set('repository.export_job', $di->lazyNew(Core\Ohanzee\Repository\ExportJobRepository::class));
+        $di->params[Core\Ohanzee\Repository\ExportJobRepository::class] = [
             'post_repo' => $di->lazyGet('repository.post')
         ];
-        $di->set('repository.export_batch', $di->lazyNew(V3\Repository\ExportBatchRepository::class));
-        $di->setters[V3\Repository\Post\ExportRepository::class]['setSetRepo']
+        $di->set('repository.export_batch', $di->lazyNew(Core\Ohanzee\Repository\ExportBatchRepository::class));
+        $di->setters[Core\Ohanzee\Repository\Post\ExportRepository::class]['setSetRepo']
             = $di->lazyGet('repository.set');
-        $di->setters[V3\Repository\Post\ExportRepository::class]['setTagRepo']
+        $di->setters[Core\Ohanzee\Repository\Post\ExportRepository::class]['setTagRepo']
             = $di->lazyGet('repository.tag');
-        $di->setters[V3\Repository\Post\ExportRepository::class]['setMessageRepo'] =
+        $di->setters[Core\Ohanzee\Repository\Post\ExportRepository::class]['setMessageRepo'] =
             $di->lazyGet('repository.message');
-        $di->setters[V3\Repository\UserRepository::class]['setHasher']
+        $di->setters[Core\Ohanzee\Repository\UserRepository::class]['setHasher']
             = $di->lazyGet('tool.hasher.password');
 
         // Repository parameters
 
         // Abstract repository parameters
-        $di->params[V3\Repository\EloquentRepository::class] = [
-            'resolver' => $di->lazyGet('db.eloquent.resolver'),
-        ];
-        $di->params[V3\Repository\OhanzeeRepository::class] = [
+        // $di->params[Core\Ohanzee\Repository\EloquentRepository::class] = [
+        //     'resolver' => $di->lazyGet('db.eloquent.resolver'),
+        // ];
+        $di->params[Core\Ohanzee\Repository\OhanzeeRepository::class] = [
             'resolver' => $di->lazyGet('db.ohanzee.resolver'),
         ];
 
         // Config
-        $di->params[V3\Repository\ConfigRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\ConfigRepository::class] = [
             'resolver' => $di->lazyGet('db.ohanzee.resolver'),
         ];
 
@@ -334,29 +334,29 @@ class AppConfig extends ContainerConfig
             'resolver' => $di->lazyGet('db.ohanzee.resolver'),
         ];
         // Set up Json Transcode Repository Trait
-        $di->setters[V3\Repository\Concerns\JsonTranscode::class]['setTranscoder'] =
+        $di->setters[Core\Ohanzee\Repository\Concerns\JsonTranscode::class]['setTranscoder'] =
             $di->lazyGet('tool.jsontranscode');
 
         // Media repository parameters
-        $di->params[V3\Repository\MediaRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\MediaRepository::class] = [
             'upload' => $di->lazyGet('tool.uploader'),
         ];
 
         // Form Stage repository parameters
-        $di->params[V3\Repository\Form\StageRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\Form\StageRepository::class] = [
             'form_repo' => $di->lazyGet('repository.form')
         ];
 
         // Form Contact repository parameters
-        $di->params[V3\Repository\Form\ContactRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\Form\ContactRepository::class] = [
             'form_repo' => $di->lazyGet('repository.form'),
             'targeted_survey_state_repo' => $di->lazyGet('repository.targeted_survey_state'),
             'message_repo' => $di->lazyGet('repository.message'),
         ];
-        $di->setters[V3\Repository\Form\ContactRepository::class]['setEvent'] = 'FormContactEvent';
+        $di->setters[Core\Ohanzee\Repository\Form\ContactRepository::class]['setEvent'] = 'FormContactEvent';
 
         // Form Stats repository parameters
-        $di->params[V3\Repository\Form\StatsRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\Form\StatsRepository::class] = [
             'form_repo' => $di->lazyGet('repository.form')
         ];
 
@@ -381,26 +381,26 @@ class AppConfig extends ContainerConfig
         $di->setters[V3\Listener\ContactListener::class]['setTargetedSurveyStateRepo'] =
             $di->lazyGet('repository.targeted_survey_state');
 
-        $di->setters[V3\Repository\Form\ContactRepository::class]['setListener'] =
+        $di->setters[Core\Ohanzee\Repository\Form\ContactRepository::class]['setListener'] =
             $di->lazyNew(V3\Listener\ContactListener::class);
 
         $di->setters[V3\Validator\Form\Contact\Create::class]['setFormRepo'] =
             $di->lazyGet('repository.form');
 
-        $di->setters[V3\Validator\Form\Contact\Create::class]['setContactRepo'] =
-            $di->lazyGet('repository.contact');
-        $di->setters[V3\Validator\Form\Contact\Create::class]['setFormContactRepo'] =
-            $di->lazyGet('repository.form_contact');
+        // $di->setters[V3\Validator\Form\Contact\Create::class]['setContactRepo'] =
+        //     $di->lazyGet('repository.contact');
+        // $di->setters[V3\Validator\Form\Contact\Create::class]['setFormContactRepo'] =
+        //     $di->lazyGet('repository.form_contact');
 
 
         // Form Attribute repository parameters
-        $di->params[V3\Repository\Form\AttributeRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\Form\AttributeRepository::class] = [
             'form_stage_repo' => $di->lazyGet('repository.form_stage'),
             'form_repo' => $di->lazyGet('repository.form')
         ];
 
         // Post repository parameters
-        $di->params[V3\Repository\PostRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\PostRepository::class] = [
             'form_attribute_repo' => $di->lazyGet('repository.form_attribute'),
             'form_stage_repo' => $di->lazyGet('repository.form_stage'),
             'form_repo' => $di->lazyGet('repository.form'),
@@ -410,30 +410,30 @@ class AppConfig extends ContainerConfig
             'bounding_box_factory' => $di->newFactory(\Ushahidi\Core\Tool\BoundingBox::class)
         ];
 
-        $di->set('repository.post.datetime', $di->lazyNew(V3\Repository\Post\DatetimeRepository::class));
-        $di->set('repository.post.decimal', $di->lazyNew(V3\Repository\Post\DecimalRepository::class));
-        $di->set('repository.post.geometry', $di->lazyNew(V3\Repository\Post\GeometryRepository::class));
-        $di->set('repository.post.int', $di->lazyNew(V3\Repository\Post\IntegerRepository::class));
-        $di->set('repository.post.point', $di->lazyNew(V3\Repository\Post\PointRepository::class));
-        $di->set('repository.post.relation', $di->lazyNew(V3\Repository\Post\RelationRepository::class));
-        $di->set('repository.post.text', $di->lazyNew(V3\Repository\Post\TextRepository::class));
+        $di->set('repository.post.datetime', $di->lazyNew(Core\Ohanzee\Repository\Post\DatetimeRepository::class));
+        $di->set('repository.post.decimal', $di->lazyNew(Core\Ohanzee\Repository\Post\DecimalRepository::class));
+        $di->set('repository.post.geometry', $di->lazyNew(Core\Ohanzee\Repository\Post\GeometryRepository::class));
+        $di->set('repository.post.int', $di->lazyNew(Core\Ohanzee\Repository\Post\IntegerRepository::class));
+        $di->set('repository.post.point', $di->lazyNew(Core\Ohanzee\Repository\Post\PointRepository::class));
+        $di->set('repository.post.relation', $di->lazyNew(Core\Ohanzee\Repository\Post\RelationRepository::class));
+        $di->set('repository.post.text', $di->lazyNew(Core\Ohanzee\Repository\Post\TextRepository::class));
         $di->set(
             'repository.post.description',
-            $di->lazyNew(V3\Repository\Post\DescriptionRepository::class)
+            $di->lazyNew(Core\Ohanzee\Repository\Post\DescriptionRepository::class)
         );
-        $di->set('repository.post.varchar', $di->lazyNew(V3\Repository\Post\VarcharRepository::class));
-        $di->set('repository.post.markdown', $di->lazyNew(V3\Repository\Post\MarkdownRepository::class));
-        $di->set('repository.post.title', $di->lazyNew(V3\Repository\Post\TitleRepository::class));
-        $di->set('repository.post.media', $di->lazyNew(V3\Repository\Post\MediaRepository::class));
-        $di->set('repository.post.tags', $di->lazyNew(V3\Repository\Post\TagsRepository::class));
+        $di->set('repository.post.varchar', $di->lazyNew(Core\Ohanzee\Repository\Post\VarcharRepository::class));
+        $di->set('repository.post.markdown', $di->lazyNew(Core\Ohanzee\Repository\Post\MarkdownRepository::class));
+        $di->set('repository.post.title', $di->lazyNew(Core\Ohanzee\Repository\Post\TitleRepository::class));
+        $di->set('repository.post.media', $di->lazyNew(Core\Ohanzee\Repository\Post\MediaRepository::class));
+        $di->set('repository.post.tags', $di->lazyNew(Core\Ohanzee\Repository\Post\TagsRepository::class));
 
-        $di->params[V3\Repository\Post\TagsRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\Post\TagsRepository::class] = [
             'tag_repo' => $di->lazyGet('repository.tag')
         ];
 
         // The post value repo factory
-        $di->set('repository.post_value_factory', $di->lazyNew(V3\Repository\Post\ValueFactory::class));
-        $di->params[V3\Repository\Post\ValueFactory::class] = [
+        $di->set('repository.post_value_factory', $di->lazyNew(Core\Ohanzee\Repository\Post\ValueFactory::class));
+        $di->params[Core\Ohanzee\Repository\Post\ValueFactory::class] = [
             // a map of attribute types to repositories
             'map' => [
                 'datetime' => $di->lazyGet('repository.post.datetime'),
@@ -452,7 +452,7 @@ class AppConfig extends ContainerConfig
             ],
         ];
 
-        $di->params[V3\Repository\Post\PointRepository::class] = [
+        $di->params[Core\Ohanzee\Repository\Post\PointRepository::class] = [
             'decoder' => $di->lazyNew('Symm\Gisconverter\Decoders\WKT')
         ];
 
@@ -646,9 +646,9 @@ class AppConfig extends ContainerConfig
             $di->lazyGet('repository.post');
 
         // Event listener for the Set repo
-        $di->setters[V3\Repository\SetRepository::class]['setEvent'] = 'PostSetEvent';
+        $di->setters[Core\Ohanzee\Repository\SetRepository::class]['setEvent'] = 'PostSetEvent';
 
-        $di->setters[V3\Repository\SetRepository::class]['setListener'] =
+        $di->setters[Core\Ohanzee\Repository\SetRepository::class]['setListener'] =
             $di->lazyNew(V3\Listener\PostSetListener::class);
 
         // NotificationQueue repo for Set listener
@@ -656,8 +656,8 @@ class AppConfig extends ContainerConfig
             $di->lazyGet('repository.notification.queue');
 
         // Event listener for the Post repo
-        $di->setters[V3\Repository\PostRepository::class]['setEvent'] = 'PostCreateEvent';
-        $di->setters[V3\Repository\PostRepository::class]['setListener'] =
+        $di->setters[Core\Ohanzee\Repository\PostRepository::class]['setEvent'] = 'PostCreateEvent';
+        $di->setters[Core\Ohanzee\Repository\PostRepository::class]['setListener'] =
             $di->lazyNew(V3\Listener\PostListener::class);
 
         // WebhookJob repo for Post listener
@@ -669,22 +669,22 @@ class AppConfig extends ContainerConfig
             $di->lazyGet('repository.webhook');
 
         // Add Intercom Listener to Config
-        $di->setters[V3\Repository\ConfigRepository::class]['setEvent'] = 'ConfigUpdateEvent';
-        $di->setters[V3\Repository\ConfigRepository::class]['setListener'] =
+        $di->setters[Core\Ohanzee\Repository\ConfigRepository::class]['setEvent'] = 'ConfigUpdateEvent';
+        $di->setters[Core\Ohanzee\Repository\ConfigRepository::class]['setListener'] =
             $di->lazyNew(V3\Listener\IntercomCompanyListener::class);
 
         // Add Intercom Listener to Form
-        $di->setters[V3\Repository\FormRepository::class]['setEvent'] = 'FormUpdateEvent';
-        $di->setters[V3\Repository\FormRepository::class]['setListener'] =
+        $di->setters[Core\Ohanzee\Repository\FormRepository::class]['setEvent'] = 'FormUpdateEvent';
+        $di->setters[Core\Ohanzee\Repository\FormRepository::class]['setListener'] =
             $di->lazyNew(V3\Listener\IntercomCompanyListener::class);
 
         // Add Intercom Listener to User
-        $di->setters[V3\Repository\UserRepository::class]['setEvent'] = 'UserGetAllEvent';
-        $di->setters[V3\Repository\UserRepository::class]['setListener'] =
+        $di->setters[Core\Ohanzee\Repository\UserRepository::class]['setEvent'] = 'UserGetAllEvent';
+        $di->setters[Core\Ohanzee\Repository\UserRepository::class]['setListener'] =
             $di->lazyNew(V3\Listener\IntercomAdminListener::class);
 
         // Add Lock Listener
-        $di->setters[V3\Repository\Post\LockRepository::class]['setEvent'] = 'LockBroken';
+        $di->setters[Core\Ohanzee\Repository\Post\LockRepository::class]['setEvent'] = 'LockBroken';
 
         $di->setters[Core\Usecase\Post\ImportPost::class]['setEvent'] = 'ImportPosts';
         $di->setters[Core\Usecase\Post\ImportPost::class]['setListener'] =
@@ -700,7 +700,7 @@ class AppConfig extends ContainerConfig
             $di->lazyGet('authorizer.hxl');
 
         // hxl meta_data
-        $di->set('repository.hxl_meta_data', $di->lazyNew(V3\Repository\HXL\HXLMetadataRepository::class));
+        $di->set('repository.hxl_meta_data', $di->lazyNew(Core\Ohanzee\Repository\HXL\HXLMetadataRepository::class));
         $di->set('formatter.entity.hxl_meta_data', $di->lazyNew(V3\Formatter\HXL\HXLMetadata::class));
         $di->set(
             'authorizer.hxl.meta_data',
@@ -771,19 +771,19 @@ class AppConfig extends ContainerConfig
 
         $di->set(
             'repository.form_attribute_hxl_attribute_tag',
-            $di->lazyNew(V3\Repository\HXL\HXLFormAttributeHXLAttributeTagRepository::class)
+            $di->lazyNew(Core\Ohanzee\Repository\HXL\HXLFormAttributeHXLAttributeTagRepository::class)
         );
         $di->setters[Core\Usecase\Post\ExportPost::class]['setFormAttributeRepository'] =
             $di->lazyGet('repository.form_attribute');
 
         // hxl attributes
-        $di->set('repository.hxl_attribute', $di->lazyNew(V3\Repository\HXL\HXLAttributeRepository::class));
+        $di->set('repository.hxl_attribute', $di->lazyNew(Core\Ohanzee\Repository\HXL\HXLAttributeRepository::class));
         $di->params[\Ushahidi\Modules\V3\Factory\RepositoryFactory::class]['map']['hxl_attributess'] =
             $di->lazyGet('repository.hxl_attribute');
 
 
         // hxl licenses
-        $di->set('repository.hxl_license', $di->lazyNew(V3\Repository\HXL\HXLLicenseRepository::class));
+        $di->set('repository.hxl_license', $di->lazyNew(Core\Ohanzee\Repository\HXL\HXLLicenseRepository::class));
 
         $di->set('formatter.entity.hxl_license', $di->lazyNew(V3\Formatter\HXL\HXLLicense::class));
 
@@ -797,7 +797,7 @@ class AppConfig extends ContainerConfig
             $di->lazyGet("authorizer.hxl");
 
         // hxl tags
-        $di->set('repository.hxl_tag', $di->lazyNew(V3\Repository\HXL\HXLTagRepository::class));
+        $di->set('repository.hxl_tag', $di->lazyNew(Core\Ohanzee\Repository\HXL\HXLTagRepository::class));
         $di->set('formatter.entity.hxl_tag', $di->lazyNew(V3\Formatter\HXL\HXLTag::class));
         $di->params[\Ushahidi\Modules\V3\Factory\AuthorizerFactory::class]['map']['hxl_tags'] =
             $di->lazyGet('authorizer.hxl');
@@ -927,7 +927,7 @@ class AppConfig extends ContainerConfig
         $di->set('authorizer.country_code', $di->lazyNew(\Ushahidi\Core\Tool\Authorizer\CountryCodeAuthorizer::class));
 
         //FIXME
-        $di->set('repository.hxl_organisations', $di->lazyNew(V3\Repository\HXL\HXLTagRepository::class));
+        $di->set('repository.hxl_organisations', $di->lazyNew(Core\Ohanzee\Repository\HXL\HXLTagRepository::class));
 
         // Set up config bindings
 

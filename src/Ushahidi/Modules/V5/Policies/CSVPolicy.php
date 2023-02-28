@@ -8,10 +8,10 @@ use Ushahidi\Modules\V5\Models\CSV;
 use Ushahidi\Contracts\Permission;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
 use Ushahidi\Core\Concerns\OwnerAccess;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
+use Ushahidi\Core\Concerns\ControlAccess;
 use Ushahidi\Core\Facade\Feature;
 
 class CSVPolicy
@@ -24,15 +24,15 @@ class CSVPolicy
     // - `AdminAccess` to check if the user has admin access
     use AdminAccess;
 
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
     // Check that the user has the necessary permissions
-    use AccessControlList;
-    
+    use ControlAccess;
+
     use OwnerAccess;
 
     protected $user;

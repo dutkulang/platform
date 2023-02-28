@@ -11,11 +11,11 @@
 namespace Ushahidi\Tests\Unit\Modules\V3\Validator\Role;
 
 use Mockery as M;
-use Ushahidi\Core\Tool\FeatureManager as Feature;
+use Ushahidi\Core\Support\FeatureManager as Feature;
 use Ushahidi\Tests\TestCase;
 use Kohana\Validation\Validation;
 use Ushahidi\Modules\V3\Validator\Role\Update;
-use Ushahidi\Contracts\Repository\Entity\PermissionRepository;
+use Ushahidi\Core\Entity\PermissionRepository;
 
 /**
  * @backupGlobals disabled

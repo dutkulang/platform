@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Ushahidi\Core\Tool\OhanzeeResolver;
+use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
 use Ushahidi\Multisite\Middleware\DetectSite;
 use Ushahidi\Multisite\Middleware\MaintenanceMode;
 use Ushahidi\Multisite\Middleware\CheckDemoExpiration;
@@ -17,6 +17,10 @@ class MultisiteServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/multisite.php', 'multisite'
+       );
+
         // Register manager
         $this->app->singleton('multisite', function ($app) {
             return new MultisiteManager(
@@ -32,6 +36,10 @@ class MultisiteServiceProvider extends ServiceProvider
     // @todo move some of this into manager?
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../config/multisite.php' => config_path('multisite.php'),
+        ]);
+
         $this->app[Kernel::class]->pushMiddleware(DetectSite::class);
         $this->app[Kernel::class]->pushMiddleware(MaintenanceMode::class);
 

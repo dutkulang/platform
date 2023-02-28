@@ -11,7 +11,7 @@
 
 namespace Ushahidi\Core\Entity\HXL;
 
-use Ushahidi\Core\StaticEntity;
+use Ushahidi\Core\Ohanzee\StaticEntity;
 
 class HXLAttribute extends StaticEntity
 {
@@ -19,8 +19,9 @@ class HXLAttribute extends StaticEntity
     protected $tag_name;
     protected $hxl_attributes;
     protected $form_attribute_types;
+
     // DataTransformer
-    public function getDefinition()
+    protected function getDefinition()
     {
         return [
             'id'        => 'int',

@@ -3,10 +3,8 @@
 namespace Ushahidi\Modules\V2\Jobs;
 
 use Ushahidi\Modules\V2;
-use Ushahidi\Core\Entity;
-use Ushahidi\Core\Tool\Job;
 use Illuminate\Support\Facades\DB;
-use Ushahidi\Contracts\Repository\Entity\MessageRepository;
+use Ushahidi\Core\Entity\MessageRepository;
 
 class ImportMessages extends ImportFromV2Job
 {

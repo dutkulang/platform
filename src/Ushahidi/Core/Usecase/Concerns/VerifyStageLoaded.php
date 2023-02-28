@@ -13,17 +13,17 @@ namespace Ushahidi\Core\Usecase\Concerns;
 
 use Ushahidi\Contracts\Entity;
 use Ushahidi\Core\Entity\FormAttribute;
-use Ushahidi\Contracts\Repository\Entity\FormStageRepository;
+use Ushahidi\Core\Entity\FormStageRepository;
 
 trait VerifyStageLoaded
 {
     /**
-     * @var FormRepository
+     * @var \Ushahidi\Core\Entity\FormStageRepository
      */
     protected $form_stage_repo;
 
     /**
-     * @param  FormStageRepository $repo
+     * @param \Ushahidi\Core\Entity\FormStageRepository $repo
      * @return void
      */
     public function setStageRepository(FormStageRepository $repo)
@@ -33,7 +33,7 @@ trait VerifyStageLoaded
 
     /**
      * Checks that the form exists.
-     * @param  Data $input
+     * @param \Ushahidi\Core\Entity\FormAttribute $input
      * @return void
      */
     protected function verifyStageExists(FormAttribute $entity)

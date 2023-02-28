@@ -3,10 +3,10 @@
 namespace Ushahidi\Modules\V2\Jobs;
 
 use Ushahidi\Modules\V2;
-use Ushahidi\Core\Entity;
+use Ushahidi\Core\Ohanzee\Entity;
 use Ushahidi\Core\Tool\Job;
 use Illuminate\Support\Facades\DB;
-use Ushahidi\Contracts\Repository\Entity\PostRepository;
+use Ushahidi\Core\Entity\PostRepository;
 
 class ImportIncidents extends ImportFromV2Job
 {

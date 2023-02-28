@@ -11,18 +11,18 @@
 
 namespace Ushahidi\Core\Usecase\HXL;
 
-use Illuminate\Support\Facades\Log;
 use Ushahidi\Contracts\Usecase;
+use Illuminate\Support\Facades\Log;
+use Ushahidi\Core\Concerns\IdentifyRecords;
+use Ushahidi\Core\Entity\ExportJobRepository;
+use Ushahidi\Core\Entity\UserSettingRepository;
+use Ushahidi\Core\Entity\HXL\HXLLicenseRepository;
+use Ushahidi\Core\Entity\HXL\HXLMetadataRepository;
+use Ushahidi\Core\Tool\ExternalServices\HDXInterface;
 use Ushahidi\Core\Usecase\Concerns\Formatter as FormatterTrait;
 use Ushahidi\Core\Usecase\Concerns\Authorizer as AuthorizerTrait;
 use Ushahidi\Core\Usecase\Concerns\Translator as TranslatorTrait;
-use Ushahidi\Core\Tool\ExternalServices\HDXInterface;
-use Ushahidi\Core\Usecase\Concerns\IdentifyRecords;
-use Ushahidi\Contracts\Repository\Entity\ExportJobRepository;
-use Ushahidi\Contracts\Repository\Entity\HXLLicenseRepository;
-use Ushahidi\Contracts\Repository\Entity\HXLMetadataRepository;
-use Ushahidi\Contracts\Repository\Entity\UserSettingRepository;
-use Ushahidi\Contracts\Repository\Entity\HXLFormAttributeHXLAttributeTagRepository;
+use Ushahidi\Core\Entity\HXL\HXLFormAttributeHXLAttributeTagRepository;
 
 class SendHXLUsecase implements Usecase
 {
@@ -206,7 +206,7 @@ class SendHXLUsecase implements Usecase
     /**
      * Will this usecase write any data?
      *
-     * @return Boolean
+     * @return boolean
      */
     public function isWrite()
     {
@@ -216,7 +216,7 @@ class SendHXLUsecase implements Usecase
     /**
      * Will this usecase search for data?
      *
-     * @return Boolean
+     * @return boolean
      */
     public function isSearch()
     {

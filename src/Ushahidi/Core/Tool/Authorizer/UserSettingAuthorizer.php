@@ -17,10 +17,10 @@ use Ushahidi\Core\Entity\Permission;
 use Ushahidi\Contracts\Authorizer;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\OwnerAccess;
 use Ushahidi\Core\Concerns\PrivateDeployment;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
+use Ushahidi\Core\Concerns\ControlAccess;
 
 // The `UserAuthorizer` class is responsible for access checks on `Users`
 class UserSettingAuthorizer implements Authorizer
@@ -31,19 +31,19 @@ class UserSettingAuthorizer implements Authorizer
     // - `AdminAccess` to check if the user has admin access
     use AdminAccess, OwnerAccess;
 
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
     // Check that the user has the necessary permissions
-    use AccessControlList;
+    use ControlAccess;
 
     /**
      * Get a list of all possible privilges.
      * By default, returns standard HTTP REST methods.
-     * @return Array
+     * @return array
      */
     protected function getAllPrivs()
     {
@@ -51,7 +51,7 @@ class UserSettingAuthorizer implements Authorizer
     }
 
     /* Authorizer */
-    public function isAllowed(Entity $entity, $privilege)
+    public function isAllowed(Entity $setting, $privilege)
     {
         // These checks are run within the user context.
         $user = $this->getUser();
@@ -62,7 +62,7 @@ class UserSettingAuthorizer implements Authorizer
         }
 
         // Regular user should be able to perform all actions on their own settings
-        if ($this->isUserOwner($entity, $user)) {
+        if ($this->isUserOwner($setting, $user)) {
             return true;
         }
 

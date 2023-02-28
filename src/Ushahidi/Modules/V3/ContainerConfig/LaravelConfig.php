@@ -36,8 +36,8 @@ class LaravelConfig extends ContainerConfig
             return Storage::disk()->getDriver();
         });
 
-        $di->set('multisite', function () {
-            return app('multisite');
+        $di->set('site', function () {
+            return app('site');
         });
 
         // Setup user session service
@@ -51,7 +51,7 @@ class LaravelConfig extends ContainerConfig
 
         // Abstract repository parameters
         $di->set('db.ohanzee.resolver', $di->lazy(function () {
-            return app(\Ushahidi\Core\Tool\OhanzeeResolver::class);
+            return app(\Ushahidi\Core\Ohanzee\Resolver::class);
         }));
 
         // Configure dispatcher

@@ -15,7 +15,7 @@ use Illuminate\Mailer\Message;
 use Mockery as M;
 use phpmock\mockery\PHPMockery;
 use Ushahidi\Tests\TestCase;
-use Ushahidi\Contracts\Repository\Entity\MessageRepository;
+use Ushahidi\Core\Entity\MessageRepository;
 use Ushahidi\DataSource\Email\Email;
 use Ushahidi\Multisite\Site;
 
@@ -48,9 +48,9 @@ class EmailDataSourceTest extends TestCase
             'password' => config('database.connections.mysql.password'),
         ]);
         $site->shouldReceive('getId')->andReturn(1);
-        $this->app->make('multisite')->setSite($site);
+        $this->app->make('site')->setDefault($site);
 
-        $mockMailer = M::mock(\Illuminate\Contracts\Mail\Mailer::class);
+        $mockMailer = M::mock(Mailer::class);
 
         $email = new Email(
             [],

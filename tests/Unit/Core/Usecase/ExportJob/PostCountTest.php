@@ -5,9 +5,9 @@ namespace Ushahidi\Tests\Unit\Core\Usecase\ExportJob;
 use Faker;
 use Mockery as M;
 use Ushahidi\Tests\TestCase;
-use Ushahidi\Contracts\Repository\Entity\ExportJobRepository;
 use Ushahidi\Contracts\Session;
-use Ushahidi\Core\Entity\ExportJob;
+use Ushahidi\Core\Entity\ExportJobRepository;
+use Ushahidi\Core\Ohanzee\Entity\ExportJob;
 use Ushahidi\Core\Usecase\Export\Job\PostCount;
 
 /**

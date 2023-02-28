@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Ushahidi\Core\Tool\SiteManager;
-use Ushahidi\Core\Tool\FeatureManager;
-use Ushahidi\Core\Tool\OhanzeeResolver;
-use Ushahidi\Contracts\Repository\Entity\ConfigRepository;
+use Ushahidi\Core\Support\SiteManager;
+use Ushahidi\Core\Support\FeatureManager;
+use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
+use Ushahidi\Core\Data\ConfigRepository;
 use Ushahidi\Modules\V5\Models\Post\Post as PostModel;
 use Ushahidi\Modules\V5\Repository\Category\CategoryRepository;
 use Ushahidi\Modules\V5\Repository\Category\EloquentCategoryRepository;

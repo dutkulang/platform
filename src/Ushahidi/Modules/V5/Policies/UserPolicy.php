@@ -3,22 +3,21 @@
 namespace Ushahidi\Modules\V5\Policies;
 
 use Ushahidi\Authzn\GenericUser as User;
-use Ushahidi\Core\Entity\User as StaticUser;
-use Ushahidi\Modules\V5\Models\User as EloquentUser;
-use Ushahidi\Contracts\Permission;
+use Ushahidi\Core\Entity\Permission;
 use Ushahidi\Core\Concerns\AdminAccess;
-use Ushahidi\Core\Concerns\PrivAccess;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
-use Ushahidi\Core\Tool\Acl;
+use Ushahidi\Core\Concerns\ControlAccess;
+use Ushahidi\Modules\V5\Models\User as EloquentUser;
+use Ushahidi\Core\Ohanzee\Entity\User as OhanzeeUser;
 
 class UserPolicy
 {
+    // Check that the user has the necessary permissions
+    use ControlAccess;
 
-
-
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // Check if user has Admin access
     use AdminAccess;
@@ -26,39 +25,32 @@ class UserPolicy
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
-    // Check that the user has the necessary permissions
-    use AccessControlList;
-
     protected $user;
 
     public function index(User $user): bool
     {
-        $empty_model_user = new StaticUser();
+        $empty_model_user = new OhanzeeUser();
         return $this->isAllowed($empty_model_user, 'search');
     }
 
     public function show(User $user, EloquentUser $eloquentUser): bool
     {
-        $entity = new StaticUser();
+        $entity = new OhanzeeUser();
         $entity->setState($eloquentUser->toArray());
         return $this->isAllowed($entity, 'read');
     }
 
     public function delete(User $user, EloquentUser $eloquentUser): bool
     {
-        $entity = new StaticUser();
+        $entity = new OhanzeeUser();
         $entity->setState($eloquentUser->toArray());
 
         return $this->isAllowed($entity, 'delete');
     }
-    /**
-     * @param User $user
-     * @param ModelUser $model_user
-     * @return bool
-     */
+
     public function update(User $user, EloquentUser $eloquentUser): bool
     {
-        $entity = new StaticUser();
+        $entity = new OhanzeeUser();
         $entity->setState($eloquentUser->toArray());
 
         return $this->isAllowed($entity, 'update');
@@ -66,7 +58,7 @@ class UserPolicy
 
     public function store(User $user): bool
     {
-        $entity = new StaticUser();
+        $entity = new OhanzeeUser();
         return $this->isAllowed($entity, 'create');
     }
 

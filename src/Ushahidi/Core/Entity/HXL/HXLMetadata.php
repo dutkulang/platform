@@ -11,9 +11,10 @@
 
 namespace Ushahidi\Core\Entity\HXL;
 
-use Ushahidi\Core\StaticEntity;
+use Ushahidi\Contracts\OwnableEntity;
+use Ushahidi\Core\Ohanzee\StaticEntity;
 
-class HXLMetadata extends StaticEntity
+class HXLMetadata extends StaticEntity implements OwnableEntity
 {
     protected $id;
     protected $private;
@@ -27,7 +28,7 @@ class HXLMetadata extends StaticEntity
     protected $updated;
 
     // DataTransformer
-    public function getDefinition()
+    protected function getDefinition()
     {
         return [
             'id'                => 'int',

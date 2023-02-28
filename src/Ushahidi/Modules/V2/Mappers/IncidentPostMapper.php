@@ -4,14 +4,14 @@ namespace Ushahidi\Modules\V2\Mappers;
 
 use Carbon\Carbon;
 use Ushahidi\Modules\V2\Import;
-use Ushahidi\Core\Entity\Post;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use League\Flysystem\Util\MimeType;
+use Ushahidi\Core\Ohanzee\Entity\Post;
 use Ushahidi\Modules\V2\Contracts\Mapper;
+use Ushahidi\Core\Entity\FormAttributeRepository;
 use Ushahidi\Modules\V2\Contracts\ImportDataTools;
 use Ushahidi\Modules\V2\Contracts\ImportMappingRepository;
-use Ushahidi\Contracts\Repository\Entity\FormAttributeRepository;
 
 class IncidentPostMapper implements Mapper
 {

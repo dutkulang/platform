@@ -16,10 +16,10 @@ use Ushahidi\Contracts\Authorizer;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\OwnerAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
+use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
-use Ushahidi\Contracts\Permission;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
+use Ushahidi\Core\Entity\Permission;
+use Ushahidi\Core\Concerns\ControlAccess;
 
 // The `MessageAuthorizer` class is responsible for access checks on `Message`
 class MessageAuthorizer implements Authorizer
@@ -32,15 +32,15 @@ class MessageAuthorizer implements Authorizer
     // - `OwnerAccess` to check if a user owns the entity
     use AdminAccess, OwnerAccess;
 
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
+    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
+    use AccessPrivileges;
 
     // It uses `PrivateDeployment` to check whether a deployment is private
     use PrivateDeployment;
 
     // Check that the user has the necessary permissions
     // if roles are available for this deployment.
-    use AccessControlList;
+    use ControlAccess;
 
     /* Authorizer */
     public function isAllowed(Entity $entity, $privilege)
