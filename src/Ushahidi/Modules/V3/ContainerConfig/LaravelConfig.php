@@ -4,9 +4,9 @@ namespace Ushahidi\Modules\V3\ContainerConfig;
 
 use Aura\Di\Container;
 use Aura\Di\ContainerConfig;
-use Ushahidi\Authzn\Session;
-use Ushahidi\Core\Tool\Mailer;
 use Illuminate\Support\Facades\Storage;
+use Ushahidi\Core\Tool\Mailer;
+use Ushahidi\Core\Support\Session;
 
 class LaravelConfig extends ContainerConfig
 {
@@ -61,7 +61,7 @@ class LaravelConfig extends ContainerConfig
 
     protected function injectAuraConfig(Container $di)
     {
-        // CDN Config settings
+        // CDN ConfigEntity settings
         $di->values['cdn.config'] = config('cdn');
 
         // $di->set('cdn.config', function () {

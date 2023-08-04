@@ -3,8 +3,8 @@ namespace Ushahidi\Tests\Feature\V3;
 
 use Faker;
 use Ushahidi\Tests\TestCase;
-use Ushahidi\Core\Entity\ApiKey;
-use Ushahidi\Core\Entity\Post;
+use Ushahidi\Core\Ohanzee\Entity\ApiKeyEntity;
+use Ushahidi\Core\Ohanzee\Entity\Post;
 
 /**
  * @group api
@@ -20,7 +20,7 @@ class WebhooksPostsUpdateAPI extends TestCase
      * override this setup in the test for authorization
      * @param $user_role
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -32,7 +32,7 @@ class WebhooksPostsUpdateAPI extends TestCase
         ]));
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         service('repository.post')->delete(new Post(['id' => $this->postId]));
 
@@ -77,7 +77,7 @@ class WebhooksPostsUpdateAPI extends TestCase
 
         // Make an API key
         $apiKeys = service('repository.apikey');
-        $apiKeyId = $apiKeys->create(new ApiKey([]));
+        $apiKeyId = $apiKeys->create(new ApiKeyEntity([]));
         $apiKey = $apiKeys->get($apiKeyId);
 
         // Make a signature

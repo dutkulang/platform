@@ -150,8 +150,6 @@ return [
         /*
          * Package Service Providers...
          */
-
-        Ushahidi\Authzn\ServiceProvider::class,
         Ushahidi\Multisite\MultisiteServiceProvider::class,
         Ushahidi\DataSource\DataSourceServiceProvider::class,
 

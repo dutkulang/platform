@@ -15,7 +15,7 @@ use Ushahidi\Modules\V5\Repository\Translation\TranslationRepository;
 use Ushahidi\Modules\V5\Repository\CountryCode\CountryCodeRepository;
 use Ushahidi\Modules\V5\Repository\CountryCode\EloquentCountryCodeRepository;
 use Ushahidi\Modules\V5\Repository\Post\EloquentPostRepository;
-use Ushahidi\Modules\V5\Repository\Post\PostRepository as V5PostRepository;
+use Ushahidi\Modules\V5\Repository\Post\PostRepository;
 use Ushahidi\Modules\V5\Repository\Permissions\PermissionsRepository;
 use Ushahidi\Modules\V5\Repository\Permissions\EloquentPermissionsRepository;
 use Ushahidi\Modules\V5\Repository\Role\RoleRepository;
@@ -76,10 +76,10 @@ class AppServiceProvider extends ServiceProvider
             return new OhanzeeResolver();
         });
 
-        $this->registerFeatures();
+        $this->registerActions();
     }
 
-    public function registerFeatures()
+    public function registerActions()
     {
         $this->app->bind(CountryCodeRepository::class, EloquentCountryCodeRepository::class);
 
@@ -96,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TosRepository::class, EloquentTosRepository::class);
         $this->app->bind(CategoryRepository::class, EloquentCategoryRepository::class);
         $this->app->bind(TranslationRepository::class, EloquentTranslationRepository::class);
-        $this->app->bind(V5PostRepository::class, function ($app) {
+        $this->app->bind(PostRepository::class, function ($app) {
             return new EloquentPostRepository(PostModel::query());
         });
         $this->app->bind(Survey\SurveyRepository::class, Survey\EloquentSurveyRepository::class);

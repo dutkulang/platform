@@ -12,7 +12,7 @@ namespace Ushahidi\DataSource\FrontlineSMS;
  */
 
 use Illuminate\Routing\Router;
-use Ushahidi\Contracts\Contact;
+use Ushahidi\DataSource\Contracts\Contact;
 use Illuminate\Support\Facades\Log;
 use Ushahidi\DataSource\Contracts\CallbackDataSource;
 use Ushahidi\DataSource\Contracts\OutgoingDataSource;
@@ -26,8 +26,10 @@ class FrontlineSMS implements CallbackDataSource, OutgoingDataSource
 
     protected $config;
 
+    protected $client;
+
     /**
-     * Contact type user for this provider
+     * ContactEntity type user for this provider
      */
     public $contact_type = Contact::PHONE;
 

@@ -3,12 +3,12 @@
 namespace Ushahidi\Modules\V5\Policies;
 
 use Ushahidi\Contracts\Entity;
-use Ushahidi\Core\Entity\Permission;
+use Ushahidi\Core\Data\PermissionEntity as Permission;
 use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Core\Concerns\ControlAccess;
-use Ushahidi\Authzn\GenericUser as User;
+use Ushahidi\Core\Support\GenericUser as User;
 use Ushahidi\Modules\V5\Models\Config as EloquentConfig;
 use Ushahidi\Core\Ohanzee\Entity\Config as OhanzeeConfig;
 
@@ -28,6 +28,8 @@ class ConfigPolicy
     // if roles are available for this deployment.
     use ControlAccess;
 
+    protected $authorizer;
+
     /**
      * Public config groups
      * @var [string, ...]
@@ -39,6 +41,11 @@ class ConfigPolicy
      * @var [string, ...]
      */
     protected $readonly_groups = ['features', 'deployment_id'];
+
+    public function __construct(AccessControl $acl, TagAuthorizer $authorizer)
+    {
+        $this->authorizer = $authorizer->setAcl($acl);
+    }
 
     public function index()
     {
@@ -60,7 +67,7 @@ class ConfigPolicy
 
     public function update(User $user, EloquentConfig $config)
     {
-        // we convert to a Config entity to be able to continue using the old authorizers and classes.
+        // we convert to a ConfigEntity entity to be able to continue using the old authorizers and classes.
         $config_entity = new OhanzeeConfig($config->toArray());
         return $this->isAllowed($config_entity, 'update');
     }
@@ -117,7 +124,7 @@ class ConfigPolicy
      */
     protected function isConfigPublic(Entity $entity)
     {
-        // Config that is unloaded is treated as public.
+        // ConfigEntity that is unloaded is treated as public.
         if (!$entity->getId()) {
             return true;
         }
@@ -136,7 +143,7 @@ class ConfigPolicy
      */
     protected function isConfigReadOnly(Entity $entity)
     {
-        // Config that is unloaded is treated as writable.
+        // ConfigEntity that is unloaded is treated as writable.
         if (!$entity->getId()) {
             return false;
         }

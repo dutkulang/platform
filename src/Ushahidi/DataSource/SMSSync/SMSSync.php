@@ -12,7 +12,7 @@ namespace Ushahidi\DataSource\SMSSync;
  */
 
 use Illuminate\Routing\Router;
-use Ushahidi\Contracts\Contact;
+use Ushahidi\DataSource\Contracts\Contact;
 use Ushahidi\DataSource\Contracts\MessageType;
 use Ushahidi\DataSource\Contracts\CallbackDataSource;
 use Ushahidi\DataSource\Concerns\MapsInboundFields;
@@ -89,7 +89,7 @@ class SMSSync implements CallbackDataSource
     }
 
     /**
-     * Contact type user for this provider
+     * ContactEntity type user for this provider
      */
     public $contact_type = Contact::PHONE;
 

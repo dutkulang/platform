@@ -2,8 +2,8 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Authzn\GenericUser as User;
-use Ushahidi\Core\Entity\Permission;
+use Ushahidi\Core\Support\GenericUser as User;
+use Ushahidi\Core\Data\PermissionEntity as Permission;
 use Ushahidi\Modules\V5\Repository\Role\RoleRepository;
 
 class CountryCodePolicy

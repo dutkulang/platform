@@ -3,7 +3,7 @@
 namespace Ushahidi\Modules\V5\Policies;
 
 use Ushahidi\Core\Tool\AccessControl;
-use Ushahidi\Authzn\GenericUser as User;
+use Ushahidi\Core\Support\GenericUser as User;
 use Ushahidi\Core\Ohanzee\Entity\Tag as OhanzeeCategory;
 use Ushahidi\Modules\V5\Models\Category as EloquentCategory;
 use Ushahidi\Core\Tool\Authorizer\TagAuthorizer;
@@ -14,8 +14,7 @@ class CategoryPolicy
 
     public function __construct(AccessControl $acl, TagAuthorizer $authorizer)
     {
-        $this->authorizer = $authorizer;
-        $this->authorizer->setAcl($acl);
+        $this->authorizer = $authorizer->setAcl($acl);
     }
 
     public function view(User $user, EloquentCategory $category)

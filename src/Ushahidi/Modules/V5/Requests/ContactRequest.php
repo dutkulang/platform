@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 use Ushahidi\Modules\V5\Models\Contact;
 use Illuminate\Http\Request;
-use Ushahidi\Contracts\Contact as ContactTypes;
+use Ushahidi\Core\Data\ContactEntity as ContactTypes;
 
 class ContactRequest extends BaseRequest
 {

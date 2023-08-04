@@ -2,11 +2,12 @@
 
 namespace Ushahidi\Modules\V5\Repository\Set;
 
-use Ushahidi\Modules\V5\Models\Set;
-use Ushahidi\Core\Entity\Set as CollectionEntity;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Ushahidi\Modules\V5\DTO\CollectionSearchFields;
+use Ushahidi\Core\Data\SetEntity as CollectionEntity;
 use Ushahidi\Core\Exception\NotFoundException;
 use Ushahidi\Core\Tool\SearchData;
-use Ushahidi\Modules\V5\DTO\CollectionSearchFields;
+use Ushahidi\Modules\V5\Models\Set;
 
 interface SetRepository
 {

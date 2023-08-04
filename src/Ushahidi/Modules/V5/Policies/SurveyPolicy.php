@@ -2,10 +2,10 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Authzn\GenericUser as User;
+use Ushahidi\Core\Support\GenericUser as User;
 use Ushahidi\Core\Ohanzee\Entity\Form as OhanzeeForm;
 use Ushahidi\Modules\V5\Models\Survey as EloquentSurvey;
-use Ushahidi\Core\Entity\Permission;
+use Ushahidi\Core\Data\PermissionEntity as Permission;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Core\Concerns\AccessPrivileges;

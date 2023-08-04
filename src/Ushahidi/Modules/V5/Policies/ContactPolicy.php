@@ -2,7 +2,7 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Authzn\GenericUser as User;
+use Ushahidi\Core\Support\GenericUser as User;
 use Ushahidi\Core\Ohanzee\Entity\Contact as OhanzeeContact;
 use Ushahidi\Modules\V5\Models\Contact as EloquentContact;
 use Ushahidi\Core\Concerns\AdminAccess;
@@ -55,7 +55,7 @@ class ContactPolicy
 
     public function update(User $user, EloquentContact $contact)
     {
-        // we convert to a Contact entity to be able to continue using the old authorizers and classes.
+        // we convert to a ContactEntity entity to be able to continue using the old authorizers and classes.
         $contact_entity = new OhanzeeContact($contact->toArray());
         return $this->isAllowed($contact_entity, 'update');
     }
