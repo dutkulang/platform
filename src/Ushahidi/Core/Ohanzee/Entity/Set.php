@@ -13,7 +13,7 @@ namespace Ushahidi\Core\Ohanzee\Entity;
 
 use Illuminate\Support\Facades\Auth;
 use Ushahidi\Core\Ohanzee\StaticEntity;
-use \Ushahidi\Core\Data\SetEntity;
+use Ushahidi\Core\Data\SetEntity;
 
 class Set extends StaticEntity implements SetEntity
 {

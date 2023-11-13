@@ -8,9 +8,7 @@ use Ushahidi\Modules\V5\Repository\Set\SetRepository;
 use Ushahidi\Core\Exception\NotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Ushahidi\Modules\V5\DTO\CollectionSearchFields;
-use Ushahidi\Core\Data\Set as CollectionEntity;
-use Illuminate\Support\Facades\Auth;
+use Ushahidi\Core\Data\SetEntity;
 use Ushahidi\Core\Tool\SearchData;
 
 class EloquentSetRepository implements SetRepository
@@ -118,15 +116,15 @@ class EloquentSetRepository implements SetRepository
 
     /**
      * This method will create a Set
-     * @param CollectionEntity $data
+     * @param SetEntity $data
      * @return int
      * @throws \Exception
      */
-    public function create(CollectionEntity $input): int
+    public function create(SetEntity $input): int
     {
         DB::beginTransaction();
         try {
-            $set = set::create($input->asArray());
+            $set = Set::create($input->asArray());
             DB::commit();
             return $set->id;
         } catch (\Exception $e) {
@@ -138,11 +136,9 @@ class EloquentSetRepository implements SetRepository
     /**
      * This method will update the Set
      * @param int $id
-     * @param CollectionEntity $set_entity
+     * @param SetEntity $set_entity
      */
-
-
-    public function update(int $id, CollectionEntity $set_entity, bool $search = false): void
+    public function update(int $id, SetEntity $set_entity, bool $search = false): void
     {
         $set = Set::find($id);
         if (!$set instanceof Set) {

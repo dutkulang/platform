@@ -13,7 +13,7 @@ namespace Ushahidi\Contracts\Repository;
 
 use Ushahidi\Contracts\Entity;
 
-interface UpdateRepository
+interface UpdateRepository extends EntityGet, EntityExists
 {
     /**
      * @param array|\Ushahidi\Contracts\Entity $entity

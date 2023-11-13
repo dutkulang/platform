@@ -8,6 +8,7 @@ use Ushahidi\Core\Data\FormEntity as SurveyEntity;
 use Ushahidi\Modules\V5\DTO\SurveySearchFields;
 use Ushahidi\Modules\V5\Models\SurveyRole;
 use Illuminate\Database\Eloquent\Collection;
+use Ushahidi\Core\Exception\NotFoundException;
 
 interface SurveyRepository
 {

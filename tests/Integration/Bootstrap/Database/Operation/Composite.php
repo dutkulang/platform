@@ -33,7 +33,8 @@ class Composite implements Operation
                 $operation->execute($connection, $dataSet);
             }
         } catch (\Exception $e) {
-            throw new \Exception("COMPOSITE[{$e->getOperation()}]", $e->getQuery(), $e->getArgs(), $e->getTable(), $e->getError());
+            throw $e;
+            // throw new \Exception("COMPOSITE[{$e->getOperation()}]", $e->getQuery(), $e->getArgs(), $e->getTable(), $e->getError());
         }
     }
 }

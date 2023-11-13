@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         Models\CSV::class => Policies\CSVPolicy::class,
         Models\ExportJob::class => Policies\ExportJobPolicy::class,
         Models\Media::class => Policies\MediaPolicy::class,
-        Models\Apikey::class => Policies\APIKeyPolicy::class,
+        Models\Apikey::class => Policies\ApiKeyPolicy::class,
         Models\Webhooks\Webhook::class => Policies\WebhookPolicy::class
     ];
 

@@ -11,7 +11,7 @@
 
 namespace Ushahidi\Modules\V3\Validator\User;
 
-use Ushahidi\Core\Facade\Feature;
+use Ushahidi\Core\Support\Facades\Feature;
 use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Modules\V3\Validator\LegacyValidator;
 use Ushahidi\Core\Data\RoleRepository;

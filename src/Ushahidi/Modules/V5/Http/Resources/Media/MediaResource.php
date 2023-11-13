@@ -2,7 +2,7 @@
 namespace Ushahidi\Modules\V5\Http\Resources\Media;
 
 use Illuminate\Http\Resources\Json\JsonResource as Resource;
-use Ushahidi\Core\Data\Media as MediaEntity;
+use Ushahidi\Core\Ohanzee\Entity\Media as OhanzeeMedia;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -21,7 +21,7 @@ class MediaResource extends Resource
         // Note that we use attributesToArray instead of toArray because the first
         // would have the effect of causing unnecessary requests to the database
         // (relations are not needed in this case by the authorizer)
-        $entity = new MediaEntity($this->resource->toArray());
+        $entity = new OhanzeeMedia($this->resource->toArray());
         // if there's no user the guards will kick them off already, but if there
         // is one we need to check the authorizer to ensure we don't let
         // users without admin perms create forms etc

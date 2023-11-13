@@ -3,12 +3,12 @@
 namespace Ushahidi\Modules\V5\Actions\SavedSearch\Commands;
 
 use App\Bus\Command\Command;
-use Ushahidi\Core\Data\SavedSearch;
+use Ushahidi\Core\Data\SetEntity;
 
 class UpdateSavedSearchCommand implements Command
 {
     /**
-     * @var SavedSearch
+     * @var SetEntity
      */
     private $entity;
 
@@ -18,25 +18,17 @@ class UpdateSavedSearchCommand implements Command
     private $id;
 
 
-    public function __construct(int $id, SavedSearch $entity)
+    public function __construct(int $id, SetEntity $entity)
     {
         $this->entity = $entity;
         $this->id = $id;
     }
 
-
-    /**
-     * @return SavedSearch
-     */
-    public function getEntity(): SavedSearch
+    public function getEntity(): SetEntity
     {
         return $this->entity;
     }
 
-
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

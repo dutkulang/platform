@@ -5,7 +5,7 @@ use Illuminate\Http\Resources\Json\JsonResource as Resource;
 use Ushahidi\Modules\V5\Http\Resources\RequestCachedResource;
 use Ushahidi\Modules\V5\Http\Resources\Permissions\PermissionsCollection;
 use Illuminate\Support\Collection;
-use Ushahidi\Core\Data\Role;
+use Ushahidi\Core\Ohanzee\Entity\Role as OhanzeeRole;
 
 
 use App\Bus\Query\QueryBus;
@@ -23,7 +23,7 @@ class RoleResource extends Resource
         // Note that we use attributesToArray instead of toArray because the first
         // would have the effect of causing unnecessary requests to the database
         // (relations are not needed in this case by the authorizer)
-        $entity = new Role($this->resource->attributesToArray());
+        $entity = new OhanzeeRole($this->resource->attributesToArray());
         // if there's no user the guards will kick them off already, but if there
         // is one we need to check the authorizer to ensure we don't let
         // users without admin perms create forms etc
@@ -48,9 +48,6 @@ class RoleResource extends Resource
             'protected'=> $this->protected,
             'permissions' =>$this->getResourcePermissions($this->permissions),
             'allowed_privileges' => $this->getResourcePrivileges()
-
-
-
         ];
     }
 

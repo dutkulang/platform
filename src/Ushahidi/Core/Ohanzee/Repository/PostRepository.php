@@ -54,7 +54,6 @@ class PostRepository extends OhanzeeRepository implements
     protected $form_repo;
     protected $post_lock_repo;
     protected $contact_repo;
-    protected $post_lock_repo;
 
     protected $post_value_factory;
     protected $bounding_box_factory;

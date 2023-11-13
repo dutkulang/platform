@@ -2,21 +2,19 @@
 
 namespace Ushahidi\Modules\V5\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Ushahidi\Modules\V5\Models\User;
 use Ushahidi\Modules\V5\Http\Resources\User\UserCollection;
 use Ushahidi\Modules\V5\Http\Resources\User\UserResource;
-use Illuminate\Http\Request;
-use Ushahidi\Modules\V5\Models\User;
 use Ushahidi\Modules\V5\Actions\User\Queries\FetchUserByIdQuery;
 use Ushahidi\Modules\V5\Actions\User\Queries\FetchUserQuery;
 use Ushahidi\Modules\V5\Actions\User\Commands\CreateUserCommand;
 use Ushahidi\Modules\V5\Actions\User\Commands\DeleteUserCommand;
 use Ushahidi\Modules\V5\Actions\User\Commands\UpdateUserCommand;
-use Illuminate\Support\Facades\Auth;
-use Ushahidi\Core\Data\UserEntity;
 use Ushahidi\Modules\V5\DTO\UserSearchFields;
 use Ushahidi\Modules\V5\Requests\UserRequest;
-use Illuminate\Support\Facades\Log;
-use Ushahidi\Core\Exception\NotFoundException;
+use Ushahidi\Core\Ohanzee\Entity\User as OhanzeeUser;
 
 class UserController extends V5Controller
 {
@@ -94,7 +92,7 @@ class UserController extends V5Controller
     {
         $this->authorize('store', new User());
 
-        $command = new CreateUserCommand(UserEntity::buildEntity($request->input()));
+        $command = new CreateUserCommand(OhanzeeUser::buildEntity($request->input()));
         $this->commandBus->handle($command);
         return new UserResource(
             $this->queryBus->handle(new FetchUserByIdQuery($command->getId()))
@@ -112,7 +110,7 @@ class UserController extends V5Controller
     public function update(UserRequest $request, int $id)
     {
         $user = $this->queryBus->handle(new FetchUserByIdQuery($id));
-        $userEntity = UserEntity::buildEntity($request->input(), 'update', $user->toArray());
+        $userEntity = OhanzeeUser::buildEntity($request->input(), 'update', $user->toArray());
         $this->authorize('update', $user->fill($userEntity->asArray()));
 
         $this->commandBus->handle(
@@ -138,7 +136,7 @@ class UserController extends V5Controller
         }
         $user = $this->queryBus->handle(new FetchUserByIdQuery($id));
         $this->commandBus->handle(
-            new UpdateUserCommand($id, UserEntity::buildEntity($request->input(), 'update', $user->toArray()))
+            new UpdateUserCommand($id, OhanzeeUser::buildEntity($request->input(), 'update', $user->toArray()))
         );
         return $this->showMe();
     } //end update()

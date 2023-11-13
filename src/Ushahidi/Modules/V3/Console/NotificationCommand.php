@@ -11,7 +11,7 @@
 namespace Ushahidi\Modules\V3\Console;
 
 use Illuminate\Console\Command;
-use Ushahidi\Core\Data\Message;
+use Ushahidi\Core\Data\MessageEntity;
 use Ushahidi\DataSource\DataSourceManager;
 use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
 use Ushahidi\Core\Concerns\UsesSiteInfo;
@@ -29,6 +29,8 @@ class NotificationCommand extends Command
     private $notificationQueueRepository;
 
     protected $resolver;
+
+    protected $sources;
 
     /**
      * The console command name.
@@ -62,7 +64,7 @@ class NotificationCommand extends Command
     /**
      * Get current connection
      *
-     * @return Ohanzee\Database;
+     * @return \Ohanzee\Database;
      */
     protected function db()
     {
@@ -152,7 +154,7 @@ class NotificationCommand extends Command
                     'message' => trans('notifications.'.$messageType.'.message', $subs),
                     'type' => $messageType,
                     'data_source' => $data_source,
-                    'direction' => Message::OUTGOING,
+                    'direction' => MessageEntity::OUTGOING,
                 ];
 
                 $entity = $this->messageRepository->getEntity();

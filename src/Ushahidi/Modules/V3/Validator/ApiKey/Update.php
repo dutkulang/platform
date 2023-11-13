@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Ushahidi ApiKeyEntity Validator
+ * Ushahidi ApiKey Validator
  *
  * @author     Ushahidi Team <team@ushahidi.com>
  * @package    Ushahidi\Application

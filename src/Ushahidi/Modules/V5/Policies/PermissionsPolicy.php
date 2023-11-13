@@ -2,74 +2,43 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Modules\V5\Models\Permissions as EloquentPermissions;
-use Ushahidi\Core\Support\GenericUser as User;
-use Ushahidi\Core\Concerns\AdminAccess;
-use Ushahidi\Core\Concerns\AccessPrivileges;
-use Ushahidi\Core\Concerns\UserContext;
+use Ushahidi\Core\Support\GenericUser;
+use Ushahidi\Core\Tool\Authorizer\PermissionAuthorizer;
+use Ushahidi\Modules\V5\Models\Permissions as EloquentPermission;
 
 class PermissionsPolicy
 {
+    protected $authorizer;
 
-
-    use UserContext;
-
-    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
-    use AccessPrivileges;
-
-    // Check if user has Admin access
-    use AdminAccess;
-
-    protected $user;
-
-    public function index(User $user):bool
+    public function __construct(PermissionAuthorizer $authorizer)
     {
-        $empty_permissions = new EloquentPermissions();
-        return $this->isAllowed($empty_permissions, 'search', $user);
+        $this->authorizer = $authorizer;
     }
 
-    public function show(User $user, EloquentPermissions $permissions):bool
+    public function index(GenericUser $user):bool
     {
-        return $this->isAllowed($permissions, 'read', $user);
+        $empty_permissions = new EloquentPermission();
+        return $this->authorizer->setUser($user)->isAllowed($empty_permissions, 'search');
     }
 
-    public function delete(User $user, EloquentPermissions $permissions):bool
+    public function show(GenericUser $user, EloquentPermission $permissions):bool
     {
-        return $this->isAllowed($permissions, 'delete', $user);
+        return $this->authorizer->setUser($user)->isAllowed($permissions, 'read');
     }
 
-    public function update(User $user, EloquentPermissions $permissions):bool
+    public function delete(GenericUser $user, EloquentPermission $permissions):bool
     {
-        return $this->isAllowed($permissions, 'update', $user);
+        return $this->authorizer->setUser($user)->isAllowed($permissions, 'delete');
     }
 
-
-    public function store(User $user):bool
+    public function update(GenericUser $user, EloquentPermission $permissions):bool
     {
-        $permissions = new EloquentPermissions();
-        return $this->isAllowed($permissions, 'create', $user);
+        return $this->authorizer->setUser($user)->isAllowed($permissions, 'update');
     }
 
-    /**
-     * @param EloquentPermissions $permissions
-     * @param string $privilege
-     * @param User $user
-     * @return bool
-     */
-    public function isAllowed($permissions, $privilege, $user = null):bool
+    public function store(GenericUser $user):bool
     {
-        $authorizer = service('authorizer.permission');
-        $user = $authorizer->getUser();
-
-      // These checks are run within the user context.
-      //$user = $this->getUser();
-
-      // Only allow admin access
-        if ($this->isUserAdmin($user)
-          && in_array($privilege, ['search', 'read'])) {
-            return true;
-        }
-
-        return false;
+        $permissions = new EloquentPermission();
+        return $this->authorizer->setUser($user)->isAllowed($permissions, 'create');
     }
 }

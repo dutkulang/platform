@@ -11,7 +11,7 @@ use Ushahidi\Modules\V5\Actions\Role\Queries\FetchRoleQuery;
 use Ushahidi\Modules\V5\Actions\Role\Commands\CreateRoleCommand;
 use Ushahidi\Modules\V5\Actions\Role\Commands\DeleteRoleCommand;
 use Ushahidi\Modules\V5\Actions\Role\Commands\UpdateRoleCommand;
-use Ushahidi\Core\Data\Role as RoleEntity;
+use Ushahidi\Core\Ohanzee\Entity\Role as OhanzeeRole;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Ushahidi\Modules\V5\Requests\RoleRequest;
@@ -71,7 +71,7 @@ class RoleController extends V5Controller
         $this->authorize('store', new ROLE());
 
         $command = new CreateRoleCommand(
-            RoleEntity::buildEntity($request->input()),
+            OhanzeeRole::buildEntity($request->input()),
             $request->input('permissions') ?? []
         );
         $this->commandBus->handle($command);

@@ -12,20 +12,20 @@
 namespace Ushahidi\Core\Tool\Authorizer;
 
 use Ushahidi\Contracts\Entity;
-use Ushahidi\Core\Data\Post;
-use Ushahidi\Core\Data\User;
+use Ushahidi\Contracts\ParentableEntity;
 use Ushahidi\Contracts\Authorizer;
-use Ushahidi\Core\Data\PermissionEntity as Permission;
 use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\OwnerAccess;
 use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Contracts\ParentableEntity;
 use Ushahidi\Core\Concerns\ParentAccess;
-use Ushahidi\Core\Data\FormRepository;
-use Ushahidi\Core\Data\PostRepository;
 use Ushahidi\Core\Concerns\ControlAccess;
 use Ushahidi\Core\Concerns\PrivateDeployment;
+use Ushahidi\Core\Data\PostEntity;
+use Ushahidi\Core\Data\UserEntity;
+use Ushahidi\Core\Data\PermissionEntity;
+use Ushahidi\Core\Data\FormRepository;
+use Ushahidi\Core\Data\PostRepository;
 
 // The `PostAuthorizer` class is responsible for access checks on `Post` Entities
 class PostAuthorizer implements Authorizer
@@ -83,11 +83,11 @@ class PostAuthorizer implements Authorizer
         }
 
         // First check whether there is a role with the right permissions
-        if (($privilege !== "delete") && ($this->acl->hasPermission($user, Permission::MANAGE_POSTS))) {
+        if (($privilege !== "delete") && ($this->acl->hasPermission($user, PermissionEntity::MANAGE_POSTS))) {
             return true;
         }
 
-        if (($privilege === "delete") && ($this->acl->hasPermission($user, Permission::DELETE_POSTS))) {
+        if (($privilege === "delete") && ($this->acl->hasPermission($user, PermissionEntity::DELETE_POSTS))) {
             return true;
         }
 
@@ -151,7 +151,7 @@ class PostAuthorizer implements Authorizer
         // ownership but those are already checked above
         if ($this->isUserOwner($post, $user)
             && in_array($privilege, ['update', 'lock'])
-            && $this->acl->hasPermission($user, Permission::EDIT_OWN_POSTS)) {
+            && $this->acl->hasPermission($user, PermissionEntity::EDIT_OWN_POSTS)) {
             return true;
         }
 
@@ -159,7 +159,7 @@ class PostAuthorizer implements Authorizer
         // they are allowed to edit or delete the post.
         if ($this->isUserOwner($post, $user)
             &&($privilege === "delete")
-            && $this->acl->hasPermission($user, Permission::DELETE_OWN_POSTS)) {
+            && $this->acl->hasPermission($user, PermissionEntity::DELETE_OWN_POSTS)) {
             return true;
         }
 
@@ -173,7 +173,7 @@ class PostAuthorizer implements Authorizer
         return false;
     }
 
-    protected function isPostPublishedToUser(Post $post, User $user)
+    public function isPostPublishedToUser(PostEntity $post, UserEntity $user)
     {
         if ($post->status === 'published' && $this->isUserOfRole($post, $user)) {
             return true;
@@ -181,7 +181,28 @@ class PostAuthorizer implements Authorizer
         return false;
     }
 
-    protected function isUserOfRole(Post $post, $user)
+    /* FormRole */
+    public function isFormRestricted(PostEntity $post, $user)
+    {
+        // If the $entity->form_id exists and the $form->everyone_can_create is false
+        // we check to see if the FormEntity & Role Join exists in the `FormRoleRepository`
+
+        if ($post->form_id) {
+            $roles = $this->form_repo->getRolesThatCanCreatePosts($post->form_id);
+
+            if ($roles['everyone_can_create'] > 0) {
+                return false;
+            }
+
+            if (is_array($roles['roles']) && in_array($user->role, $roles['roles'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    protected function isUserOfRole(PostEntity $post, $user)
     {
         if ($post->published_to) {
             return in_array($user->role, $post->published_to);
@@ -200,26 +221,5 @@ class PostAuthorizer implements Authorizer
         }
 
         return false;
-    }
-
-    /* FormRole */
-    protected function isFormRestricted(Post $post, $user)
-    {
-        // If the $entity->form_id exists and the $form->everyone_can_create is False
-        // we check to see if the FormEntity & Role Join exists in the `FormRoleRepository`
-
-        if ($post->form_id) {
-            $roles = $this->form_repo->getRolesThatCanCreatePosts($post->form_id);
-
-            if ($roles['everyone_can_create'] > 0) {
-                return false;
-            }
-
-            if (is_array($roles['roles']) && in_array($user->role, $roles['roles'])) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 use Ushahidi\Modules\V5\Models\Notification;
 use Illuminate\Http\Request;
-use Ushahidi\Core\Facade\Feature;
+use Ushahidi\Core\Support\Facades\Feature;
 
 class ExportJobRequest extends BaseRequest
 {

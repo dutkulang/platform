@@ -3,7 +3,7 @@
 namespace Ushahidi\Modules\V5\Actions\Role\Commands;
 
 use App\Bus\Command\Command;
-use Ushahidi\Core\Data\Role as RoleEntity;
+use Ushahidi\Core\Data\RoleEntity;
 
 class UpdateRoleCommand implements Command
 {

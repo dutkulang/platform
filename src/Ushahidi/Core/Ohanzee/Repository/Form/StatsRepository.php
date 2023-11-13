@@ -13,14 +13,14 @@ namespace Ushahidi\Core\Ohanzee\Repository\Form;
 
 use Ohanzee\DB;
 use Ohanzee\Database;
-use Ushahidi\Core\Ohanzee\Entity;
-use Ushahidi\Core\Concerns\Event;
-use Ushahidi\Core\Tool\SearchData;
-use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
 use Ushahidi\Contracts\Repository\EntityGet;
 use Ushahidi\Contracts\Repository\EntityExists;
-use Ushahidi\Core\Ohanzee\Repository\FormRepository;
 use Ushahidi\Contracts\Repository\SearchRepository;
+use Ushahidi\Core\Concerns\Event;
+use Ushahidi\Core\Tool\SearchData;
+use Ushahidi\Core\Ohanzee\Entity;
+use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
+use Ushahidi\Core\Ohanzee\Repository\FormRepository;
 use Ushahidi\Core\Ohanzee\Repository\OhanzeeRepository;
 
 class StatsRepository extends OhanzeeRepository implements
@@ -35,8 +35,8 @@ class StatsRepository extends OhanzeeRepository implements
 
     /**
      * Construct
-     * @param Database                              $db
-     * @param FormRepository                       $form_repo
+     * @param Database  $db
+     * @param FormRepository $form_repo
      */
     public function __construct(
         OhanzeeResolver $resolver,
@@ -56,7 +56,7 @@ class StatsRepository extends OhanzeeRepository implements
     // ReadRepository
     public function getEntity(array $data = null)
     {
-        return new Entities\FormStats($data);
+        return new Entity\FormStats($data);
     }
 
     // SearchRepository
@@ -99,9 +99,9 @@ class StatsRepository extends OhanzeeRepository implements
             'posts.form_id' => $form_id,
             'messages.direction' => 'incoming',
             'targeted_survey_state.survey_status' => [
-                Entities\TargetedSurveyState::RECEIVED_RESPONSE,
-                Entities\TargetedSurveyState::PENDING_RESPONSE,
-                Entities\TargetedSurveyState::SURVEY_FINISHED,
+                Entity\TargetedSurveyState::RECEIVED_RESPONSE,
+                Entity\TargetedSurveyState::PENDING_RESPONSE,
+                Entity\TargetedSurveyState::SURVEY_FINISHED,
             ]
         ];
         $query = $this->selectQuery($where);
@@ -284,9 +284,9 @@ class StatsRepository extends OhanzeeRepository implements
         $where = [
             'posts.form_id' => $form_id,
             'targeted_survey_state.survey_status' => [
-                Entities\TargetedSurveyState::RECEIVED_RESPONSE,
-                Entities\TargetedSurveyState::PENDING_RESPONSE,
-                Entities\TargetedSurveyState::SURVEY_FINISHED,
+                Entity\TargetedSurveyState::RECEIVED_RESPONSE,
+                Entity\TargetedSurveyState::PENDING_RESPONSE,
+                Entity\TargetedSurveyState::SURVEY_FINISHED,
             ]
         ];
         $query = $this->selectQuery($where)

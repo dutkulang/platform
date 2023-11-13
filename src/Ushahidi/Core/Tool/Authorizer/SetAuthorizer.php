@@ -13,7 +13,6 @@ namespace Ushahidi\Core\Tool\Authorizer;
 
 use Ushahidi\Contracts\Entity;
 use Ushahidi\Contracts\Authorizer;
-use Ushahidi\Core\Data\Set;
 use Ushahidi\Core\Data\PermissionEntity as Permission;
 use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\AdminAccess;
@@ -43,7 +42,12 @@ class SetAuthorizer implements Authorizer
     // if roles are available for this deployment.
     use ControlAccess;
 
-    protected function isVisibleToUser(Set $set, $user)
+    /**
+     * @param \Ushahidi\Core\Data\SetEntity $set
+     * @param \Ushahidi\Core\Data\UserEntity $user
+     * @return boolean
+     */
+    protected function isVisibleToUser(Entity $set, $user)
     {
         if ($set->role) {
             return in_array($user->role, $set->role);

@@ -13,7 +13,7 @@ namespace Ushahidi\Contracts\Repository;
 
 use Ushahidi\Contracts\Search;
 
-interface SearchRepository extends EntityGet
+interface SearchRepository extends EntityGet, EntityExists
 {
     /**
      * Get fields that can be used for searches.

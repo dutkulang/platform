@@ -5,7 +5,9 @@ namespace Ushahidi\Modules\V5\Actions\Webhook\Commands;
 use App\Bus\Command\Command;
 use Ushahidi\Modules\V5\Requests\WebhookRequest;
 use Illuminate\Support\Facades\Auth;
-use Ushahidi\Core\Data\Webhook as WebhookEntity;
+use Ushahidi\Core\Data\WebhookEntity;
+use Ushahidi\Core\Ohanzee\Entity\Webhook as OhanzeeWebhook;
+
 use Ramsey\Uuid\Uuid;
 
 class CreateWebhookCommand implements Command
@@ -14,9 +16,6 @@ class CreateWebhookCommand implements Command
      * @var WebhookEntity
      */
     private $webhook_entity;
-
-
-
 
     public function __construct(WebhookEntity $webhook_entity)
     {
@@ -44,7 +43,7 @@ class CreateWebhookCommand implements Command
         $input['created'] = time();
         $input['updated'] = null;
 
-        return new self(new WebhookEntity($input));
+        return new self(new OhanzeeWebhook($input));
     }
 
     /**

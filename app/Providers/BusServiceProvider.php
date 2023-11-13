@@ -20,7 +20,6 @@ use Ushahidi\Modules\V5\Actions\Tos\Handlers\FetchTosByIdQueryHandler;
 
 use App\Bus\Query\QueryBus;
 use Illuminate\Support\ServiceProvider;
-use Ushahidi\Core\Data\Webhook as EntityWebhook;
 use Ushahidi\Modules\V5\Actions\CountryCode\Queries\FetchCountryCodeByIdQuery;
 use Ushahidi\Modules\V5\Actions\CountryCode\Queries\FetchCountryCodeQuery;
 use Ushahidi\Modules\V5\Actions\CountryCode\Handlers\FetchCountryCodeByIdQueryHandler;
@@ -488,7 +487,7 @@ class BusServiceProvider extends ServiceProvider
                 Survey\Queries\GetSurveyIdsWithPrivateLocationQuery::class,
                 Survey\Handlers\GetSurveyIdsWithPrivateLocationQueryHandler::class
             );
-            
+
 
 
             $queryBus->register(

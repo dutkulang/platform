@@ -12,14 +12,13 @@
 namespace Ushahidi\Core\Tool\Authorizer;
 
 use Ushahidi\Contracts\Entity;
-use Ushahidi\Core\Data\User;
-use Ushahidi\Core\Data\PermissionEntity as Permission;
 use Ushahidi\Contracts\Authorizer;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
 use Ushahidi\Core\Concerns\ControlAccess;
+use Ushahidi\Core\Data\PermissionEntity;
 
 // The `UserAuthorizer` class is responsible for access checks on `Users`
 class UserAuthorizer implements Authorizer
@@ -42,7 +41,7 @@ class UserAuthorizer implements Authorizer
     /**
      * Get a list of all possible privilges.
      * By default, returns standard HTTP REST methods.
-     * @return Array
+     * @return array
      */
     protected function getAllPrivs()
     {
@@ -66,7 +65,7 @@ class UserAuthorizer implements Authorizer
         }
 
         // Role with the Manage Users permission can manage all users
-        if ($this->acl->hasPermission($user, Permission::MANAGE_USERS)) {
+        if ($this->acl->hasPermission($user, PermissionEntity::MANAGE_USERS)) {
             return true;
         }
 

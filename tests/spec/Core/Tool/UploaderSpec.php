@@ -50,7 +50,7 @@ class UploaderSpec extends ObjectBehavior
         $fs->getSize($filepath)->willReturn(1024);
         $fs->getMimetype($filepath)->willReturn('image/png');
 
-        $siteManager->getSite()->shouldBeCalled()->willReturn($site);
+        $siteManager->instance()->shouldBeCalled()->willReturn($site);
 
         $site->getCdnPrefix()->shouldBeCalled()->willReturn('deployment.domain.com');
 

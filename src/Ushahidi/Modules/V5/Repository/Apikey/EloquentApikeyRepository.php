@@ -9,7 +9,7 @@ use Ushahidi\Modules\V5\Models\Apikey;
 use Ushahidi\Modules\V5\DTO\Paging;
 use Ushahidi\Modules\V5\DTO\ApikeySearchFields;
 use Illuminate\Support\Facades\DB;
-use Ushahidi\Core\Data\ApiKeyEntity as ApikeyEntity;
+use Ushahidi\Core\Data\ApiKeyEntity;
 
 class EloquentApikeyRepository implements ApikeyRepository
 {

@@ -52,13 +52,20 @@ abstract class RowBased implements Operation
                         try {
                             $statement->execute($args);
                         } catch (\Exception $e) {
-                            throw new \Exception(
-                                $this->operationName,
-                                $query,
-                                $args,
-                                $table,
-                                $e->getMessage()
-                            );
+                            $message = $this->operationName . ' - ' . $query
+                                    . ' - ' . json_encode($args)
+                                    . ' - ' . $table
+                                    . ' - ' . $e->getMessage();
+
+                            throw new \Exception($message, 0, $e);
+
+                            // throw new \Exception(
+                            //     $this->operationName,
+                            //     $query,
+                            //     $args,
+                            //     $table,
+                            //     $e->getMessage()
+                            // );
                         }
                     }
 

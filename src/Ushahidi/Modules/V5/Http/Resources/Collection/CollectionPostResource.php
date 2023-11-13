@@ -2,7 +2,7 @@
 namespace Ushahidi\Modules\V5\Http\Resources\Collection;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Ushahidi\Core\Data\Set as CollectionEntity;
+use Ushahidi\Core\Ohanzee\Entity\Set as CollectionEntity;
 
 class CollectionPostResource extends JsonResource
 {

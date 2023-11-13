@@ -16,20 +16,12 @@ use Ushahidi\Contracts\Entity;
 use Ushahidi\Core\Concerns\Event;
 use Ushahidi\Core\Support\Facades\Site;
 use Ushahidi\Core\Exception\NotFoundException;
-use Ushahidi\Contracts\Repository\ReadRepository;
-use Ushahidi\Contracts\Repository\DeleteRepository;
-use Ushahidi\Contracts\Repository\UpdateRepository;
 use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
 use Ushahidi\Core\Ohanzee\Entity\Config as ConfigEntity;
 use Ushahidi\Core\Data\ConfigRepository as ConfigRepositoryContract;
 
-class ConfigRepository implements
-    ReadRepository,
-    UpdateRepository,
-    DeleteRepository,
-    ConfigRepositoryContract
+class ConfigRepository implements ConfigRepositoryContract
 {
-
     // Use Event trait to trigger events
     use Event;
 

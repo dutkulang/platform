@@ -140,9 +140,9 @@ class ContactListener extends AbstractListener
                 'post_id' => $postId,
                 'title' => $firstAttribute->label,
                 'message' => $firstAttribute->label,
-                'status' => \Ushahidi\Core\Data\Message::PENDING,
+                'status' => \Ushahidi\Core\Data\MessageEntity::PENDING,
                 'type' => $message_type,
-                'direction' => \Ushahidi\Core\Data\Message::OUTGOING,
+                'direction' => \Ushahidi\Core\Data\MessageEntity::OUTGOING,
                 'data_source' => $source->getId(),
             ];
             $message->setState($messageState);

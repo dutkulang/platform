@@ -2,11 +2,11 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Core\Tool\AccessControl;
 use Ushahidi\Core\Support\GenericUser as User;
+use Ushahidi\Core\Tool\Authorizer\TagAuthorizer;
+use Ushahidi\Core\Tool\AccessControl;
 use Ushahidi\Core\Ohanzee\Entity\Tag as OhanzeeCategory;
 use Ushahidi\Modules\V5\Models\Category as EloquentCategory;
-use Ushahidi\Core\Tool\Authorizer\TagAuthorizer;
 
 class CategoryPolicy
 {
@@ -39,6 +39,7 @@ class CategoryPolicy
     public function delete(User $user, EloquentCategory $category)
     {
         $accessedCategory = new OhanzeeCategory($category->toArray());
+
         return $this->authorizer->setUser($user)->isAllowed($accessedCategory, 'delete');
     }
 

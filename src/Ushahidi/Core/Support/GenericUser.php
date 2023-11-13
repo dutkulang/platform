@@ -2,11 +2,11 @@
 
 namespace Ushahidi\Core\Support;
 
-use Ushahidi\Core\Data\User;
+use Ushahidi\Core\Data\UserEntity;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
 
-class GenericUser implements User, AuthContract
+class GenericUser implements UserEntity, AuthContract
 {
     use HasApiTokens;
 

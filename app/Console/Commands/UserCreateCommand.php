@@ -11,7 +11,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Ushahidi\Core\Facade\Feature;
+use Ushahidi\Core\Support\Facades\Feature;
 use Illuminate\Support\Facades\Validator;
 use Ushahidi\Core\Exception\ValidatorException;
 use Ushahidi\Core\Data\TosRepository;

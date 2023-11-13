@@ -5,7 +5,7 @@ namespace Ushahidi\Modules\V5\Repository\Role;
 use Ushahidi\Modules\V5\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Ushahidi\Core\Data\Role as RoleEntity;
+use Ushahidi\Core\Data\RoleEntity;
 use Ushahidi\Modules\V5\DTO\RoleSearchFields;
 
 interface RoleRepository

@@ -1,16 +1,19 @@
 <?php
+
 /**
- * Ushahidi ApiKey Validator
+ * Ushahidi Platform Tag Entity
  *
  * @author     Ushahidi Team <team@ushahidi.com>
- * @package    Ushahidi\Application
+ * @package    Ushahidi\Platform
  * @copyright  2014 Ushahidi
  * @license    https://www.gnu.org/licenses/agpl-3.0.html GNU Affero General Public License Version 3 (AGPL3)
  */
 
-namespace Ushahidi\Modules\V3\Validator\ApiKey;
+namespace Ushahidi\Core\Data;
 
-class Create extends Update
+use Ushahidi\Contracts\Entity;
+
+interface WebhookEntity extends Entity
 {
 
 }

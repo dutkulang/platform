@@ -7,7 +7,8 @@ use Illuminate\Support\Collection;
 use Ushahidi\Modules\V5\Models\Message;
 use Ushahidi\Modules\V5\DTO\Paging;
 use Ushahidi\Modules\V5\DTO\MessageSearchFields;
-use Ushahidi\Core\Data\Message as MessageEntity;
+use Ushahidi\Core\Data\MessageEntity;
+use Ushahidi\Core\Exception\NotFoundException;
 
 interface MessageRepository
 {

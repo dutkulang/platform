@@ -2,11 +2,8 @@
 
 namespace Ushahidi\Modules\V5\Repository\Set;
 
-use SetPostUserNullOnDelete;
 use Ushahidi\Modules\V5\Models\SetPost;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Ushahidi\Modules\V5\DTO\CollectionSearchFields;
-use Ushahidi\Core\Data\Set as CollectionEntity;
+use Ushahidi\Core\Exception\NotFoundException;
 
 interface SetPostRepository
 {

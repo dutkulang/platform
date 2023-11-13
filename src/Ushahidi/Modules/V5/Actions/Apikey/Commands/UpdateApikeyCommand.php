@@ -6,7 +6,8 @@ use Ramsey\Uuid\Uuid;
 use App\Bus\Command\Command;
 use Ushahidi\Modules\V5\Models\Apikey;
 use Ushahidi\Modules\V5\Requests\ApiKeyRequest;
-use Ushahidi\Core\Data\ApiKeyEntity as ApikeyEntity;
+use Ushahidi\Core\Data\ApiKeyEntity;
+use Ushahidi\Core\Ohanzee\Entity\ApiKey as OhanzeeApiKey;
 use Ushahidi\Modules\V5\Helpers\ParameterUtilities;
 
 class UpdateApikeyCommand implements Command
@@ -38,7 +39,7 @@ class UpdateApikeyCommand implements Command
             ? $request->input('client_secret') : $current_apikey->client_secret;
         $input['created'] = strtotime($current_apikey->created);
         $input['updated'] = time();
-        return new self($id, new ApikeyEntity($input));
+        return new self($id, new OhanzeeApiKey($input));
     }
 
     public function getId(): int

@@ -11,13 +11,13 @@
 
 namespace Ushahidi\Core\Tool;
 
-use Ushahidi\Contracts\Repository\EntityGet;
+use Ushahidi\Core\Data\ConfigRepository;
 
 class Date
 {
     protected $repo;
 
-    public function __construct(EntityGet $repo)
+    public function __construct(ConfigRepository $repo)
     {
         $this->repo = $repo;
     }

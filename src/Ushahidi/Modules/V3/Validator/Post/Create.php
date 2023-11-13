@@ -12,7 +12,7 @@
 namespace Ushahidi\Modules\V3\Validator\Post;
 
 use Kohana\Validation\Validation;
-use Ushahidi\Core\Facade\Feature;
+use Ushahidi\Core\Support\Facades\Feature;
 use Ushahidi\Core\Concerns\AdminAccess;
 use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Core\Concerns\ControlAccess;

@@ -8,7 +8,7 @@ use App\Bus\Command\Command;
 use Ushahidi\Modules\V5\Actions\V5CommandHandler;
 use Ushahidi\Modules\V5\Actions\Auth\Commands\RegisterCommand;
 use Ushahidi\Modules\V5\Repository\User\UserRepository;
-use Ushahidi\Core\Facade\Feature;
+use Ushahidi\Core\Support\Facades\Feature;
 use Ushahidi\Core\Concerns\UsesSiteInfo;
 
 class RegisterCommandHandler extends V5CommandHandler

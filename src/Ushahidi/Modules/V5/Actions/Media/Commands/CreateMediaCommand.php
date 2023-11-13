@@ -6,7 +6,7 @@ use App\Bus\Command\Command;
 use Ushahidi\Modules\V5\Models\Media;
 use Ushahidi\Modules\V5\Requests\MediaRequest;
 use Illuminate\Support\Facades\Auth;
-use Ushahidi\Core\Data\Media as MediaEntity;
+use Ushahidi\Core\Data\MediaEntity;
 use Ushahidi\Core\Tool\UploadData;
 use Ushahidi\Core\Exception\ValidatorException;
 

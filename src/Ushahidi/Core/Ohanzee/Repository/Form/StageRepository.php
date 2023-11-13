@@ -12,16 +12,15 @@
 namespace Ushahidi\Core\Ohanzee\Repository\Form;
 
 use Ohanzee\DB;
-use Ohanzee\Database;
-use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
+use Ushahidi\Contracts\Search;
+use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Core\Tool\SearchData;
-use Ushahidi\Core\Ohanzee\Entity\FormStage;
+use Ushahidi\Core\Tool\Permissions\InteractsWithFormPermissions;
 use Ushahidi\Core\Data\FormStageRepository as FormStageRepositoryContract;
 use Ushahidi\Core\Data\FormRepository as FormRepositoryContract;
-use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Tool\Permissions\InteractsWithFormPermissions;
+use Ushahidi\Core\Ohanzee\Resolver as OhanzeeResolver;
+use Ushahidi\Core\Ohanzee\Entity\FormStage;
 use Ushahidi\Core\Ohanzee\Repository\OhanzeeRepository;
-use Ushahidi\Contracts\Search;
 
 class StageRepository extends OhanzeeRepository implements
     FormStageRepositoryContract
@@ -151,7 +150,7 @@ class StageRepository extends OhanzeeRepository implements
         * Retrieve Hidden Stage IDs for a given form
         * if no form is found return false
         * @param  $form_id
-        * @return Array
+        * @return array
         */
     public function getHiddenStageIds($form_id, $post_status = null)
     {

@@ -11,15 +11,16 @@
 
 namespace Ushahidi\Core\Data;
 
+use Ushahidi\Contracts\Repository\ReadRepository;
+use Ushahidi\Contracts\Repository\UpdateRepository;
+use Ushahidi\Contracts\Repository\DeleteRepository;
+
 /**
  * @method array groups()
  * @method array all(array $groups = null)
  *
- * @implements \Ushahidi\Contracts\Repository\ReadRepository
- * @implements \Ushahidi\Contracts\Repository\UpdateRepository
- * @implements \Ushahidi\Contracts\Repository\DeleteRepository
  */
-interface ConfigRepository
+interface ConfigRepository extends ReadRepository, UpdateRepository, DeleteRepository
 {
 
 }

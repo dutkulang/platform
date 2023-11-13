@@ -9,6 +9,7 @@ use Ushahidi\Core\Usecase\User\LoginUser;
 use Ushahidi\Core\Usecase\Post\ExportPost;
 use Ushahidi\Core\Usecase\Export\Job\PostCount;
 use Ushahidi\Core\Usecase\Message\ReceiveMessage;
+use Ushahidi\Core\Data\FormRepository;
 use Ushahidi\Core\Data\TosRepository;
 use Ushahidi\Core\Data\SetRepository;
 use Ushahidi\Core\Data\PostRepository;
@@ -105,6 +106,11 @@ class ServiceProvider extends BaseServiceProvider
             $this->app->singleton(TargetedSurveyStateRepository::class, function ($app) {
                 // Just return it from AuraDI
                 return service('repository.targeted_survey_state');
+            });
+
+            $this->app->singleton(FormRepository::class, function ($app) {
+                // Just return it from AuraDI
+                return service('repository.form');
             });
 
             $this->app->singleton(FormAttributeRepository::class, function ($app) {

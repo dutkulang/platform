@@ -5,7 +5,8 @@ namespace Ushahidi\Modules\V5\Actions\Webhook\Commands;
 use App\Bus\Command\Command;
 use Ushahidi\Modules\V5\Models\Webhook\Webhook;
 use Ushahidi\Modules\V5\Requests\WebhookRequest;
-use Ushahidi\Core\Data\Webhook as WebhookEntity;
+use Ushahidi\Core\Data\WebhookEntity;
+use Ushahidi\Core\Ohanzee\Entity\Webhook as OhanzeeWebhook;
 use Illuminate\Support\Facades\Auth;
 use Ushahidi\Modules\V5\Helpers\ParameterUtilities;
 
@@ -45,7 +46,7 @@ class UpdateWebhookPostsCommand implements Command
         $input['created'] = strtotime($current_webhook->created);
         $input['updated'] = time();
 
-        return new self($id, new WebhookEntity($input));
+        return new self($id, new OhanzeeWebhook($input));
     }
     private static function hasPermissionToUpdateUser($user)
     {

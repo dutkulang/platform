@@ -2,17 +2,17 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Authzn\GenericUser as User;
-use Ushahidi\Core\Entity\Set as OhanzeeSet;
-use Ushahidi\Modules\V5\Models\Set;
-use Ushahidi\Core\Tool\Acl;
+use Ushahidi\Core\Support\GenericUser as User;
+use Ushahidi\Core\Ohanzee\Entity\Set as OhanzeeSet;
+use Ushahidi\Modules\V5\Models\Set as EloquentSet;
+use Ushahidi\Core\Tool\AccessControl;
 use Ushahidi\Core\Tool\Authorizer\SetAuthorizer;
 
 class SetPolicy
 {
     protected $authorizer;
 
-    public function __construct(Acl $acl, SetAuthorizer $authorizer)
+    public function __construct(AccessControl $acl, SetAuthorizer $authorizer)
     {
         $this->authorizer = $authorizer;
         $this->authorizer->setAcl($acl);
@@ -24,7 +24,7 @@ class SetPolicy
         return $this->authorizer->isAllowed(new OhanzeeSet, 'search');
     }
 
-    public function view(User $user, Set $set)
+    public function view(User $user, EloquentSet $set)
     {
         $this->authorizer->setUser($user);
 
@@ -41,7 +41,7 @@ class SetPolicy
         return $this->authorizer->isAllowed(new OhanzeeSet, 'create');
     }
 
-    public function delete(User $user, Set $set)
+    public function delete(User $user, EloquentSet $set)
     {
         $this->authorizer->setUser($user);
 
@@ -50,7 +50,7 @@ class SetPolicy
         return $this->authorizer->isAllowed($set_entity, 'delete');
     }
 
-    public function update(User $user, Set $set)
+    public function update(User $user, EloquentSet $set)
     {
         $this->authorizer->setUser($user);
 

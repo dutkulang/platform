@@ -4,7 +4,7 @@ namespace Ushahidi\Modules\V5\Repository\Set;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Ushahidi\Modules\V5\DTO\CollectionSearchFields;
-use Ushahidi\Core\Data\SetEntity as CollectionEntity;
+use Ushahidi\Core\Data\SetEntity;
 use Ushahidi\Core\Exception\NotFoundException;
 use Ushahidi\Core\Tool\SearchData;
 use Ushahidi\Modules\V5\Models\Set;
@@ -36,17 +36,17 @@ interface SetRepository
 
     /**
      * This method will create a Set
-     * @param CollectionEntity $data
+     * @param SetEntity $data
      * @return int
      */
-    public function create(CollectionEntity $data): int;
+    public function create(SetEntity $data): int;
 
     /**
      * This method will update the Set
      * @param int $id
-     * @param CollectionEntity $set_entity
+     * @param SetEntity $set_entity
      */
-    public function update(int $id, CollectionEntity $set_entity, bool $search = false): void;
+    public function update(int $id, SetEntity $set_entity, bool $search = false): void;
 
     /**
      * This method will delete the Set

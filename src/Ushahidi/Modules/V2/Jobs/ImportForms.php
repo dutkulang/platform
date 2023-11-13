@@ -4,7 +4,7 @@ namespace Ushahidi\Modules\V2\Jobs;
 
 use Ushahidi\Modules\V2;
 use Ushahidi\Core\Tool\Job;
-use Ushahidi\Core\Data\FormEntity;
+use Ushahidi\Core\Ohanzee\Entity\FormEntity;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;

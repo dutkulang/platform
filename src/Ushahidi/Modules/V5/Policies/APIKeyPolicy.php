@@ -2,127 +2,50 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Authzn\GenericUser as User;
-use Ushahidi\Core\Data;
-use Ushahidi\Modules\V5\Models\Apikey;
-use Ushahidi\Contracts\Permission;
-use Ushahidi\Core\Concerns\AdminAccess;
-use Ushahidi\Core\Concerns\UserContext;
-use Ushahidi\Core\Concerns\PrivAccess;
-use Ushahidi\Core\Concerns\PrivateDeployment;
-use Ushahidi\Core\Concerns\OwnerAccess;
-use Ushahidi\Core\Concerns\Acl as AccessControlList;
+use Ushahidi\Core\Support\GenericUser;
+use Ushahidi\Core\Tool\AccessControl;
+use Ushahidi\Core\Tool\Authorizer\ApiKeyAuthorizer;
+use Ushahidi\Modules\V5\Models\Apikey as EloquentApiKey;
+use Ushahidi\Core\Ohanzee\Entity\ApiKey as OhanzeeApiKey;
 
-class APIKeyPolicy
+class ApiKeyPolicy
 {
+    protected $authorizer;
 
-    // The access checks are run under the context of a specific user
-    use UserContext;
-
-    // It uses methods from several traits to check access:
-    // - `AdminAccess` to check if the user has admin access
-    use AdminAccess;
-
-    // It uses `PrivAccess` to provide the `getAllowedPrivs` method.
-    use PrivAccess;
-
-    // It uses `PrivateDeployment` to check whether a deployment is private
-    use PrivateDeployment;
-
-    // Check that the user has the necessary permissions
-    use AccessControlList;
-
-    use OwnerAccess;
-
-    protected $user;
-
-
-    /**
-     *
-     * @param  \Ushahidi\Modules\User  $user
-     * @return bool
-     */
-    public function index()
+    public function __construct(AccessControl $acl, ApiKeyAuthorizer $authorizer)
     {
-        $empty_apikey_entity = new Data\ApiKeyEntity();
-        return $this->isAllowed($empty_apikey_entity, 'search');
+        $this->authorizer = $authorizer->setAcl($acl);
     }
 
-    /**
-     *
-     * @param GenericUser $user
-     * @param Apikey $apikey
-     * @return bool
-     */
-    public function show(User $user, Apikey $apikey)
+    public function index(GenericUser $user)
     {
-        $apikey_entity = new Data\ApiKeyEntity($apikey->toArray());
-        return $this->isAllowed($apikey_entity, 'read');
+        $empty_apikey_entity = new OhanzeeApiKey();
+        return $this->authorizer->setUser($user)->isAllowed($empty_apikey_entity, 'search');
     }
 
-    /**
-     *
-     * @param GenericUser $user
-     * @param Apikey $apikey
-     * @return bool
-     */
-    public function delete(User $user, Apikey $apikey)
+    public function show(GenericUser $user, EloquentApikey $apikey)
     {
-        $apikey_entity = new Data\ApiKeyEntity($apikey->toArray());
-        return $this->isAllowed($apikey_entity, 'delete');
+        $apikey_entity = new OhanzeeApiKey($apikey->toArray());
+        return $this->authorizer->setUser($user)->isAllowed($apikey_entity, 'read');
     }
-    /**
-     * @param Apikey $apikey
-     * @return bool
-     */
-    public function update(User $user, Apikey $apikey)
+
+    public function delete(GenericUser $user, EloquentApikey $apikey)
+    {
+        $apikey_entity = new OhanzeeApiKey($apikey->toArray());
+        return $this->authorizer->setUser($user)->isAllowed($apikey_entity, 'delete');
+    }
+
+    public function update(GenericUser $user, EloquentApikey $apikey)
     {
         // we convert to a Apikey entity to be able to continue using the old authorizers and classes.
-        $apikey_entity = new Data\ApiKeyEntity($apikey->toArray());
-        return $this->isAllowed($apikey_entity, 'update');
+        $apikey_entity = new OhanzeeApiKey($apikey->toArray());
+        return $this->authorizer->setUser($user)->isAllowed($apikey_entity, 'update');
     }
 
-
-    /**
-     * @param Apikey $apikey
-     * @return bool
-     */
-    public function store(User $user, Apikey $apikey)
+    public function store(GenericUser $user, EloquentApikey $apikey)
     {
         // we convert to a apikey_entity entity to be able to continue using the old authorizers and classes.
-        $apikey_entity = new Data\ApiKeyEntity($apikey->toArray());
-        return $this->isAllowed($apikey_entity, 'create');
-    }
-
-
-    /**
-     * @param $entity
-     * @param string $privilege
-     * @return bool
-     */
-    public function isAllowed($entity, $privilege)
-    {
-        $authorizer = service('authorizer.apikey');
-
-        // These checks are run within the user context.
-        $user = $authorizer->getUser();
-
-        // Only logged in users have access if the deployment is private
-        if (!$this->canAccessDeployment($user)) {
-            return false;
-        }
-
-        // Role with the Manage Settings permission can have access
-        if ($authorizer->acl->hasPermission($user, Permission::MANAGE_SETTINGS)) {
-            return true;
-        }
-
-        // Admin is allowed access to everything
-        if ($this->isUserAdmin($user)) {
-            return true;
-        }
-
-        // If no other access checks succeed, we default to denying access
-        return false;
+        $apikey_entity = new OhanzeeApiKey($apikey->toArray());
+        return $this->authorizer->setUser($user)->isAllowed($apikey_entity, 'create');
     }
 }

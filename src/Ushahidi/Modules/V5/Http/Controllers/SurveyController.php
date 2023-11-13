@@ -12,9 +12,7 @@ use Ushahidi\Modules\V5\Actions\Survey\Commands\DeleteSurveyCommand;
 use Ushahidi\Modules\V5\Http\Resources\Survey\SurveyCollection;
 use Ushahidi\Modules\V5\Http\Resources\Survey\SurveyResource;
 use Ushahidi\Modules\V5\DTO\SurveySearchFields;
-use Ushahidi\Core\Data\FormEntity as SurveyEntity;
-use Ushahidi\Core\Exception\NotFoundException;
-use Ushahidi\Modules\V5\Http\Resources\TranslationCollection;
+use Ushahidi\Core\Ohanzee\Entity\Form as OhanzeeForm;
 use Ushahidi\Modules\V5\Requests\SurveyRequest;
 use Ushahidi\Modules\V5\Actions\Survey\Queries\FetchSurveyStatsQuery;
 use Ushahidi\Modules\V5\DTO\SurveyStatesSearchFields;
@@ -94,7 +92,7 @@ class SurveyController extends V5Controller
 
         $survey_id = $this->commandBus->handle(
             new CreateSurveyCommand(
-                SurveyEntity::buildEntity($request->input()),
+                OhanzeeForm::buildEntity($request->input()),
                 $request->input('tasks') ?? [],
                 $request->input('translations') ?? []
             )
@@ -125,7 +123,7 @@ class SurveyController extends V5Controller
         $this->commandBus->handle(
             new UpdateSurveyCommand(
                 $id,
-                SurveyEntity::buildEntity($request->input(), 'update', $survey->toArray()),
+                OhanzeeForm::buildEntity($request->input(), 'update', $survey->toArray()),
                 $request->input('tasks') ?? [],
                 $request->input('translations') ?? [],
                 $current_task_ids ?? []

@@ -3,24 +3,21 @@
 namespace Ushahidi\Modules\V5\Actions\SavedSearch\Commands;
 
 use App\Bus\Command\Command;
-use Ushahidi\Core\Data\SavedSearch;
+use Ushahidi\Core\Data\SetEntity;
 
 class CreateSavedSearchCommand implements Command
 {
-    /**
-     * @var SavedSearch
-     */
     private $entity;
 
-    public function __construct(SavedSearch $entity)
+    public function __construct(SetEntity $entity)
     {
         $this->entity = $entity;
     }
 
     /**
-     * @return SavedSearch
+     * @return SetEntity
      */
-    public function getEntity(): SavedSearch
+    public function getEntity(): SetEntity
     {
         return $this->entity;
     }

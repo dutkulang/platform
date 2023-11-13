@@ -11,9 +11,10 @@
 
 namespace Ushahidi\Core\Ohanzee\Entity;
 
+use Ushahidi\Core\Data\WebhookEntity;
 use Ushahidi\Core\Ohanzee\StaticEntity;
 
-class Webhook extends StaticEntity
+class Webhook extends StaticEntity implements WebhookEntity
 {
     protected $id;
     protected $form_id;
@@ -43,21 +44,21 @@ class Webhook extends StaticEntity
     protected function getDefinition()
     {
         return [
-            'id'                        => 'int',
-            'name'                            => 'string',
-            'url'                                   => 'string',
-            'shared_secret'             => 'string',
-            'webhook_uuid'              => 'string',
-            'event_type'                  => 'string',
-            'entity_type'                 => 'string',
+            'id'                      => 'int',
+            'name'                    => 'string',
+            'url'                     => 'string',
+            'shared_secret'           => 'string',
+            'webhook_uuid'            => 'string',
+            'event_type'              => 'string',
+            'entity_type'             => 'string',
             'source_field_key'        => 'string',
             'destination_field_key'   => 'string',
-            'user'                      => false,
-            'user_id'                   => 'int',
+            'user'                    => false,
+            'user_id'                 => 'int',
             'form'                    => false, /* alias */
             'form_id'                 => 'int',
-            'created'                   => 'int',
-            'updated'                   => 'int',
+            'created'                 => 'int',
+            'updated'                 => 'int',
         ];
     }
 

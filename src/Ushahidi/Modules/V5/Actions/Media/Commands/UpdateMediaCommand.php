@@ -5,7 +5,8 @@ namespace Ushahidi\Modules\V5\Actions\Media\Commands;
 use App\Bus\Command\Command;
 use Ushahidi\Modules\V5\Models\Media;
 use Ushahidi\Modules\V5\Requests\MediaRequest;
-use Ushahidi\Core\Data\Media as MediaEntity;
+use Ushahidi\Core\Data\MediaEntity;
+use Ushahidi\Core\Ohanzee\Entity\Media as OhanzeeMedia;
 use Illuminate\Support\Facades\Auth;
 use Ushahidi\Modules\V5\Helpers\ParameterUtilities;
 
@@ -47,7 +48,7 @@ class UpdateMediaCommand implements Command
         $input['created'] = strtotime($current_media->created);
         $input['updated'] = time();
 
-        return new self($id, new MediaEntity($input));
+        return new self($id, new OhanzeeMedia($input));
     }
     private static function hasPermissionToUpdateUser($user)
     {

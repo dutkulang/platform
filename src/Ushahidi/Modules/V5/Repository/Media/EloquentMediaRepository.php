@@ -9,7 +9,7 @@ use Ushahidi\Modules\V5\Models\Media;
 use Ushahidi\Modules\V5\DTO\Paging;
 use Ushahidi\Modules\V5\DTO\MediaSearchFields;
 use Illuminate\Support\Facades\DB;
-use Ushahidi\Core\Data\Media as MediaEntity;
+use Ushahidi\Core\Data\MediaEntity;
 
 class EloquentMediaRepository implements MediaRepository
 {

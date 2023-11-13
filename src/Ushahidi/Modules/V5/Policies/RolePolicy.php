@@ -2,105 +2,53 @@
 
 namespace Ushahidi\Modules\V5\Policies;
 
-use Ushahidi\Modules\V5\Models\Role;
-use Ushahidi\Core\Support\GenericUser as User;
-use Ushahidi\Core\Concerns\AdminAccess;
-use Ushahidi\Core\Concerns\AccessPrivileges;
-use Ushahidi\Core\Concerns\UserContext;
+use Ushahidi\Core\Support\GenericUser;
+use Ushahidi\Core\Tool\Authorizer\RoleAuthorizer;
+use Ushahidi\Core\Ohanzee\Entity\Role as OhanzeeRole;
+use Ushahidi\Modules\V5\Models\Role as EloquentRole;
 
 class RolePolicy
 {
+    protected $authorizer;
 
-
-    use UserContext;
-
-    // It uses `AccessPrivileges` to provide the `getAllowedPrivs` method.
-    use AccessPrivileges;
-
-    // Check if user has Admin access
-    use AdminAccess;
-
-    protected $user;
-
-    /**
-     * @param User $user
-     * @return bool
-     */
-    public function index(User $user):bool
+    public function __construct(RoleAuthorizer $authorizer)
     {
-        $empty_role = new Role();
-        return $this->isAllowed($empty_role, 'search', $user);
+        $this->authorizer = $authorizer;
     }
 
-    /**
-     * @param User $user
-     * @param Role $role
-     * @return bool
-     */
-    public function show(User $user, Role $role):bool
+    public function index(GenericUser $user):bool
     {
-        return $this->isAllowed($role, 'read', $user);
+        $empty_role = new OhanzeeRole();
+
+        return $this->authorizer->setUser($user)->isAllowed($empty_role, 'search');
     }
 
-    /**
-     * @param User $user
-     * @param Role $role
-     * @return bool
-     */
-    public function delete(User $user, Role $role):bool
+    public function show(GenericUser $user, EloquentRole $role):bool
     {
-        return $this->isAllowed($role, 'delete', $user);
-    }
-    /**
-     * @param User $user
-     * @param Role $role
-     * @return bool
-     */
-    public function update(User $user, Role $role):bool
-    {
-        return $this->isAllowed($role, 'update', $user);
+        $staticRole = new OhanzeeRole($role->toArray());
+        return $this->authorizer->setUser($user)->isAllowed($staticRole, 'read');
     }
 
-
-    /**
-     * @param User $user
-     * @param Role $role
-     * @return bool
-     */
-    public function store(User $user):bool
+    public function store(GenericUser $user, EloquentRole $role):bool
     {
-        $role = new Role();
-        return $this->isAllowed($role, 'create', $user);
+        $staticRole = new OhanzeeRole($role->toArray());
+
+        return $this->authorizer->setUser($user)->isAllowed($staticRole, 'create');
     }
 
-    /**
-     * @param Role $role
-     * @param string $privilege
-     * @param user $user
-     * @return bool
-     */
-    public function isAllowed($role, $privilege, $user = null):bool
+    public function update(GenericUser $user, EloquentRole $role):bool
     {
-        $authorizer = service('authorizer.role');
-        $user = $authorizer->getUser();
+        $staticRole = new OhanzeeRole($role->getRawOriginal());
 
-        if ($privilege === 'delete' && $role->protected === true) {
-            return false;
-        }
+        $staticRole->setState($role->getDirty());
 
-        // Only allow admin access
-        if ($this->isUserAdmin($user)) {
-            return true;
-        }
+        return $this->authorizer->setUser($user)->isAllowed($staticRole, 'update');
+    }
 
-        if ($user->getId() and $privilege === 'read') {
-            return true;
-        }
-        // All users are allowed to search forms.
-        if ($user->getId() and $privilege === 'search') {
-            return true;
-        }
+    public function delete(GenericUser $user, EloquentRole $role):bool
+    {
+        $staticRole = new OhanzeeRole($role->toArray());
 
-        return false;
+        return $this->authorizer->setUser($user)->isAllowed($staticRole, 'delete');
     }
 }

@@ -3,12 +3,12 @@
 namespace Ushahidi\Modules\V5\Actions\Collection\Commands;
 
 use App\Bus\Command\Command;
-use Ushahidi\Core\Data\Set as Collection;
+use Ushahidi\Core\Data\SetEntity;
 
 class UpdateCollectionCommand implements Command
 {
     /**
-     * @var Collection
+     * @var SetEntity
      */
     private $entity;
 
@@ -18,17 +18,13 @@ class UpdateCollectionCommand implements Command
     private $id;
 
 
-    public function __construct(int $id, Collection $entity)
+    public function __construct(int $id, SetEntity $entity)
     {
         $this->entity = $entity;
         $this->id = $id;
     }
 
-
-    /**
-     * @return Collection
-     */
-    public function getEntity(): Collection
+    public function getEntity(): SetEntity
     {
         return $this->entity;
     }

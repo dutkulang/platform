@@ -54,7 +54,7 @@ class ContactRepository extends OhanzeeRepository implements
     // ReadRepository
     public function getEntity(array $data = null)
     {
-        return new Entities\Contact($data);
+        return new Entity\Contact($data);
     }
 
     /**
@@ -67,9 +67,9 @@ class ContactRepository extends OhanzeeRepository implements
     {
         $contact = $this->selectQuery(['contact' => $contact])->execute($this->db())->current();
         if (!$contact) {
-            return new Entities\Contact($data);
+            return new Entity\Contact($data);
         }
-        return new Entities\Contact($contact);
+        return new Entity\Contact($contact);
     }
 
 
@@ -90,9 +90,9 @@ class ContactRepository extends OhanzeeRepository implements
     }
 
     // FormContactRepository
-    public function updateCollection(array $entities, $form_id = null)
+    public function updateCollection(array $Entity, $form_id = null)
     {
-        if (empty($entities)) {
+        if (empty($Entity)) {
             return;
         }
         $results = [];
@@ -105,7 +105,7 @@ class ContactRepository extends OhanzeeRepository implements
         // Start transaction
         $this->db()->begin();
         $invalidatedContacts =  [];
-        foreach ($entities as $entity) {
+        foreach ($Entity as $entity) {
             $contactOnActiveSurvey = $this->existsInActiveTargetedSurvey($entity->contact);
             if ($contactOnActiveSurvey) {
                 $this->setInactiveTargetedSurvey($contactOnActiveSurvey['targeted_survey_state_id'], $form_id);
@@ -114,7 +114,7 @@ class ContactRepository extends OhanzeeRepository implements
                 **/
                 $message = $this->message_repo->get($contactOnActiveSurvey['message_id']);
                 if ($message->id) {
-                    $message->setState(['status' => Entities\Message::EXPIRED]);
+                    $message->setState(['status' => Entity\Message::EXPIRED]);
                     $this->message_repo->update($message);
                 }
                 $invalidatedContacts[] = [
@@ -179,8 +179,8 @@ class ContactRepository extends OhanzeeRepository implements
      */
     public function deleteAllForForm($form_id)
     {
-        $entities = $this->getByForm($form_id);
-        return $this->executeDelete(['id' => array_column($entities, 'id')]);
+        $Entity = $this->getByForm($form_id);
+        return $this->executeDelete(['id' => array_column($Entity, 'id')]);
     }
 
     public function formExistsInPostStateRepo($form_id)
@@ -262,8 +262,8 @@ class ContactRepository extends OhanzeeRepository implements
         $where = [
             'contacts.contact' => $contact,
             'targeted_survey_state.survey_status' => [
-                Entities\TargetedSurveyState::PENDING_RESPONSE,
-                Entities\TargetedSurveyState::RECEIVED_RESPONSE
+                Entity\TargetedSurveyState::PENDING_RESPONSE,
+                Entity\TargetedSurveyState::RECEIVED_RESPONSE
             ]
         ];
         $query = $this->selectQuery($where)
@@ -295,7 +295,7 @@ class ContactRepository extends OhanzeeRepository implements
             'survey_status' => str_replace(
                 '###',
                 $form_id,
-                Entities\TargetedSurveyState::INVALID_CONTACT_MOVED
+                Entity\TargetedSurveyState::INVALID_CONTACT_MOVED
             )
         ]);
         $this->targeted_survey_state_repo->update($entity);

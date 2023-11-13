@@ -18,7 +18,7 @@ use Ushahidi\Core\Concerns\OwnerAccess;
 use Ushahidi\Core\Concerns\UserContext;
 use Ushahidi\Core\Concerns\AccessPrivileges;
 use Ushahidi\Core\Concerns\PrivateDeployment;
-use Ushahidi\Core\Facade\Feature;
+use Ushahidi\Core\Support\Facades\Feature;
 
 class WebhookAuthorizer implements Authorizer
 {

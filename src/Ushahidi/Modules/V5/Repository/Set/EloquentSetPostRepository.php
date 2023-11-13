@@ -5,8 +5,6 @@ namespace Ushahidi\Modules\V5\Repository\Set;
 use Ushahidi\Modules\V5\Models\SetPost;
 use Ushahidi\Modules\V5\Repository\Set\SetPostRepository;
 use Ushahidi\Core\Exception\NotFoundException;
-use Illuminate\Support\Facades\DB;
-use Ushahidi\Core\Data\Set as CollectionEntity;
 
 class EloquentSetPostRepository implements SetPostRepository
 {

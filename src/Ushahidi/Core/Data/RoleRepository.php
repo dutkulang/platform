@@ -20,7 +20,7 @@ interface RoleRepository extends
 {
     /**
      * @param string $value
-     * @return \Ushahidi\Core\Data\Role
+     * @return \Ushahidi\Core\Data\RoleEntity
      */
     public function getByName($value);
 }
